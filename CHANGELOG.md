@@ -1,5 +1,14 @@
 # Cambios
 
+## 2026-11-17 — Página pública renovada
+
+- **Portada:** el lado derecho ahora es la tarjeta «Pide tu cita en 3 pasos» con su botón (antes era el logo, que ya aparece en la barra superior). Si no hay teléfono ni WhatsApp configurados, el segundo botón lleva a los servicios. La barra superior tiene «Pedir cita» fijo.
+- **Tratamientos:** sección nueva «Lo que podemos hacer por ti» con los nombres de los tratamientos activos del catálogo, sin precios ni registros de demostración (`/api/publico` → `treatments`). Si no hay ninguno, no se muestra.
+- **Formulario de cita** (`client/PublicContact.tsx`): campos «Servicio de interés» (del catálogo o de los servicios destacados) y «Turno preferido» (Mañana, Tarde o Noche), que se agregan al mensaje que ve Recepción en Solicitudes. El mensaje pasa a ser opcional si se elige un servicio. Se valida en el navegador antes de enviar, se usan los autocompletados del teléfono y aparece un aviso de uso de datos. Al enviar, se muestra una confirmación con acceso a llamada o WhatsApp si están configurados.
+- **Ubicación** muestra también el horario. El **pie** incluye enlaces, contacto y el año.
+- **Móvil:** botones de la portada a todo el ancho, servicios compactos (icono al lado), pie en columna y «Pedir cita» en la barra inferior. Sin desbordamiento horizontal a 375 px.
+- No se inventan datos: lo que no está en Configuración de la clínica, el contenido público, las promociones o el catálogo, no aparece.
+
 ## 2026-11-17 — Sin rutas personales en el repositorio público
 
 - `server/seed-demo.ts` y `server/complete-demo-history.ts`: la carpeta del manifiesto de la demo ya no está fija en una ruta personal. Se configura con `DEMO_OUTPUT_DIR` y por defecto es `work/demo`, excluida de git. Está documentada en `.env.example`.

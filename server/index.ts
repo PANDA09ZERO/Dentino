@@ -36,7 +36,9 @@ app.use('/api',rateLimit({windowMs:60*1000,limit:Number(process.env.API_RATE_LIM
 app.use(express.json({limit:'1mb'}));
 app.use(session({name:cookieName,secret:process.env.SESSION_SECRET,store:new MySQLSessionStore(),resave:false,saveUninitialized:false,cookie:{httpOnly:true,sameSite:'lax',secure:production,maxAge:8*3600000}}));
 app.get('/api/health',async(_req,res)=>{await rows('SELECT 1');res.json({ok:true});});
-app.get('/api/publico',async(_req,res)=>{res.json({map:((await rows("SELECT valor FROM configuracion_clinica WHERE clave='mapa_url'"))[0]||{}).valor||'',contact:await loadSettings(),sections:await rows('SELECT seccion_key,titulo,contenido,imagen_url FROM secciones_pagina WHERE activo=1 ORDER BY orden'),promotions:await rows("SELECT titulo,descripcion,badge_texto,imagen_url FROM promociones WHERE estado='Activo' AND CURRENT_DATE BETWEEN fecha_inicio AND fecha_fin")});});
+app.get('/api/publico',async(_req,res)=>{res.json({map:((await rows("SELECT valor FROM configuracion_clinica WHERE clave='mapa_url'"))[0]||{}).valor||'',contact:await loadSettings(),sections:await rows('SELECT seccion_key,titulo,contenido,imagen_url FROM secciones_pagina WHERE activo=1 ORDER BY orden'),promotions:await rows("SELECT titulo,descripcion,badge_texto,imagen_url FROM promociones WHERE estado='Activo' AND CURRENT_DATE BETWEEN fecha_inicio AND fecha_fin"),
+ // Tratamientos que ofrece la clínica (solo nombres de los activos; sin precios ni registros de demostración).
+ treatments:(await rows("SELECT DISTINCT nombre_tratamiento FROM catalogo_tratamientos WHERE estado='Activo' AND nombre_tratamiento NOT LIKE '%demo%' ORDER BY nombre_tratamiento LIMIT 60")).map(r=>String(r.nombre_tratamiento))});});
 /** Usuario vigente de la sesión: null si la cuenta se desactivó o cambió su contraseña; actualiza el rol. */
 async function currentUser(req:express.Request){
  const user=req.session.user;if(!user)return null;
