@@ -1,5 +1,13 @@
 # Cambios
 
+## 2026-11-17 — Instalar Dentino en el teléfono (PWA)
+
+- **Login:** botón «Descargar en el teléfono». Si el navegador lo permite (Chrome o Edge en Android y escritorio), abre su diálogo de instalación; si no (iPhone o Safari), muestra los pasos («Compartir → Agregar a pantalla de inicio» o «menú → Instalar aplicación»). No aparece si ya se abrió como app instalada.
+- **App instalable:** `public/manifest.webmanifest` (nombre, colores e inicio en el panel), iconos de 192 y 512 px (incluido el adaptable de Android) y el icono para iPhone, generados desde `images/logo_sin_fondo.png`.
+- `public/sw.js`: *service worker* mínimo **sin caché**, para que los datos clínicos y de caja nunca queden guardados en el teléfono. Si no hay conexión al abrir la app, muestra un aviso con «Reintentar».
+- `client/App.tsx`: abierta como app instalada y sin sesión, va directo al inicio de sesión en lugar de la página pública.
+- **Requisito:** la instalación en el teléfono necesita que la app se sirva por **HTTPS** desde una dirección que el teléfono alcance. En esta computadora la API escucha solo en `127.0.0.1` (ver «Despliegue fuera de esta computadora» en el README).
+
 ## 2026-11-17 — Página pública renovada
 
 - **Portada:** el lado derecho ahora es la tarjeta «Pide tu cita en 3 pasos» con su botón (antes era el logo, que ya aparece en la barra superior). Si no hay teléfono ni WhatsApp configurados, el segundo botón lleva a los servicios. La barra superior tiene «Pedir cita» fijo.

@@ -25,7 +25,9 @@ function NoAccess(){return <div className="no-access"><ShieldCheck size={36}/><h
 export function App(){const [user,setUser]=useState<User|null>(null),[ready,setReady]=useState(false),[startup,setStartup]=useState(''),[route,setRoute]=useState(location.hash.slice(1)||'inicio'),[mobile,setMobile]=useState(false);const [modules,setModules]=useState<Module[]>([]);
  useEffect(()=>{api('/auth/me').then(r=>{setUser(r.user);setReady(true);}).catch(e=>{setStartup(e.message);setReady(true);});const listener=()=>{setRoute(location.hash.slice(1)||'inicio');setMobile(false);};window.addEventListener('hashchange',listener);return()=>window.removeEventListener('hashchange',listener);},[]);
  useEffect(()=>{if(user)api<Module[]>('/modulos').then(setModules).catch(e=>setStartup(e.message));},[user]);
- if(!ready)return <Loading/>;if(!user)return route==='login'?<Login onLogin={setUser}/>:<Suspense fallback={<Loading/>}><PublicPage onLogin={()=>go('login')} error={startup}/></Suspense>;
+ if(!ready)return <Loading/>;// Abierta como app instalada (el equipo la descargó en su teléfono), sin sesión: va directo al inicio de sesión, no a la página pública.
+ const standalone=window.matchMedia('(display-mode: standalone)').matches||(navigator as any).standalone===true;
+ if(!user)return route==='login'||standalone?<Login onLogin={setUser}/>:<Suspense fallback={<Loading/>}><PublicPage onLogin={()=>go('login')} error={startup}/></Suspense>;
  const [key,query='']=route.split('?'),filter=new URLSearchParams(query);const mod=modules.find(m=>m.key===key);
  const cashier=user.rol==='Administrador'||user.rol==='Recepcionista';
  const denied=(user.rol!=='Administrador'&&adminRoutes.some(r=>key===r||key.startsWith('categorias-'))&&!(user.rol==='Recepcionista'&&cashierRoutes.includes(key)))||(user.rol==='Recepcionista'&&patientRoutes.includes(key));

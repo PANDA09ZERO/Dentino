@@ -228,4 +228,10 @@ El registro no se puede editar ni eliminar desde la aplicación. La columna Usua
 - Migración aditiva `20261117_indexes`: índices por fecha de cita, doctor y fecha, fecha de movimientos, planes y evoluciones, y apellido y nombre de pacientes.
 - El cliente está dividido por pantallas (`client/Dashboard.tsx`, `PatientFile.tsx`, `Agenda.tsx`, `Reports.tsx`, `Cash.tsx`, `Resources.tsx`, `Odontogram.tsx`, `Navigation.tsx`, `ui.tsx`); ficha, agenda, caja y reportes se cargan al abrirse.
 
+### Instalar en el teléfono (2026-11-17)
+
+En el inicio de sesión, **Descargar en el teléfono** instala Dentino como una app, con su icono en la pantalla de inicio. En Android, Chrome abre su diálogo de instalación; en iPhone se siguen los pasos de Safari (Compartir → Agregar a pantalla de inicio). La app no guarda datos en el teléfono: necesita conexión con el servidor de la clínica.
+
+Para instalarla desde un teléfono, Dentino debe estar publicado con **HTTPS** en una dirección accesible para ese teléfono, por ejemplo tras un proxy HTTPS con `TRUST_PROXY=1`. En la configuración local la API solo escucha en `127.0.0.1`, así que un teléfono no puede abrirla.
+
 **Restablecer una contraseña olvidada** (en la computadora del servidor): `npm run user:reset-password`. Muestra las cuentas, pide el número y la nueva contraseña (no se ve al escribir) y la guarda con bcrypt, con registro en auditoría.

@@ -176,3 +176,14 @@
 
 /* Inicio: cita atendida cuyo paciente ya pagó ese día (reemplaza «Cobrar»). */
 .row-actions a.paid-link{display:inline-flex;align-items:center;gap:4px;color:#476e47;background:#e9f3e8;border-radius:999px;padding:2px 9px}
+
+/* Login: instalar Dentino en el teléfono (PWA). */
+.install-app{border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
+.login-card .button.install-button{width:100%;justify-content:center;gap:8px;background:#fff;border:1px solid #cfe0d3;color:#174e42}
+.login-card .button.install-button:hover{background:#eef6ea}
+.install-note{color:#3f7a5a;margin:10px 0 0;font-size:13px}
+.install-help{position:relative;background:#f4f8f2;border:1px solid #e1ebdc;border-radius:14px;margin-top:12px;padding:14px 16px;font-size:13px;color:#33493f}
+.install-help ol{margin:8px 0 0;padding-left:18px;line-height:1.7}
+.install-help svg{vertical-align:-2px}
+.install-help small{margin-top:8px}
+.install-close{position:absolute;top:6px;right:6px;width:28px;height:28px}
