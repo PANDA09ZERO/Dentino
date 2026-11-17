@@ -1,0 +1,56 @@
+/* Página pública (inicio para visitantes): diseño Bento, adaptable a móvil */
+.pub{max-width:1240px;margin:0 auto;padding:0 20px 110px}
+.pub .button{width:auto;margin:0}
+.pub-skip{z-index:50;color:#fff;background:#174e42;border-radius:10px;padding:10px 14px;position:absolute;top:8px;left:-9999px}
+.pub-skip:focus{left:12px}
+.pub-nav{z-index:30;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);background:#f6f8f7ee;justify-content:space-between;align-items:center;gap:16px;margin:0 -20px 18px;padding:14px 20px;display:flex;position:sticky;top:0}
+.pub-nav nav{align-items:center;gap:6px;display:flex}
+.pub-nav nav a{color:#52665e;border-radius:10px;padding:9px 13px;font-size:13px}
+.pub-nav nav a:hover{background:#e9f0e6}
+.pub-bento{grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;display:grid}
+.pub-tile{border:1px solid var(--line);background:#fff;border-radius:24px;min-width:0;padding:28px}
+.pub-tile h2{margin-bottom:6px;font-size:22px}
+.pub-tile h3{margin-bottom:4px;font-size:17px}
+.pub-tile p{margin:8px 0 0;font-size:14px}
+.pub-hero{background:linear-gradient(135deg,#e3f2da 0%,#f3f9ef 60%,#fff 100%);flex-direction:column;grid-column:span 8;justify-content:center;gap:4px;min-height:360px;display:flex}
+.pub-hero h1{letter-spacing:-.045em;max-width:18ch;font-size:clamp(30px,5vw,54px);line-height:1.1}
+.pub-hero p{max-width:52ch;font-size:16px}
+.pub-cta{flex-wrap:wrap;gap:10px;margin-top:22px;display:flex}
+.pub-cta .button{padding:14px 20px;font-size:13px}
+.pub-logo{text-align:center;background:#f1ecfa;place-items:center;gap:14px;grid-column:span 4;display:grid}
+.pub-logo img{object-fit:contain;max-width:100%;height:auto}
+.pub-logo span{color:#6f5f8f;font-size:14px;font-weight:600}
+.pub-info-row{grid-column:1/-1;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;display:grid}
+.pub-info{color:inherit;align-items:flex-start;gap:14px;padding:20px;font-size:14px;line-height:1.5;display:flex}
+.pub-info b{color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;font-size:10px;font-weight:700;display:block}
+.pub-info small{margin-top:3px;color:#5b8157}
+a.pub-info{transition:box-shadow .15s,transform .15s}
+a.pub-info:hover{box-shadow:0 10px 30px #183a2314;transform:translateY(-1px)}
+.pub-icon{color:#3f7a5a;background:#eaf3e5;border-radius:14px;flex-shrink:0;place-items:center;width:42px;height:42px;display:grid}
+.pub-head{grid-column:1/-1;margin-top:20px;scroll-margin-top:84px}
+.pub-service{grid-column:span 4}
+.pub-service .pub-icon{margin-bottom:14px}
+.pub-promo{background:#fbf9ef;grid-column:span 6}
+.pub-step{grid-column:span 4}
+.pub-num{color:#fff;background:#174e42;border-radius:50%;place-items:center;width:34px;height:34px;margin-bottom:14px;font-family:Manrope,sans-serif;font-weight:700;display:grid}
+.pub-form{grid-column:span 7;scroll-margin-top:84px}
+.pub-wide{grid-column:1/-1}
+.pub-where{grid-column:span 5}
+.pub-where iframe{border:0;border-radius:16px;width:100%;height:260px;margin:14px 0}
+.pub-footer{color:#8b9a92;text-align:center;flex-direction:column;align-items:center;gap:6px;padding:34px 0 10px;font-size:12px;display:flex}
+.pub-link{color:#5b8157;background:0 0;border:0;padding:6px;font-size:12px;text-decoration:underline}
+.pub-actions{display:none}
+@media (width<=900px){
+ .pub-hero,.pub-logo,.pub-service,.pub-promo,.pub-step,.pub-form,.pub-where{grid-column:1/-1}
+ .pub-hero{min-height:0}
+ .pub-logo img{max-width:160px}
+}
+@media (width<=760px){
+ .pub{padding:0 14px 96px}
+ .pub-nav{margin:0 -14px 14px;padding:12px 14px}
+ .pub-nav nav a{display:none}
+ .pub-tile{border-radius:20px;padding:22px}
+ .pub-actions{z-index:30;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);background:#fffffff4;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;position:fixed;inset:auto 0 0}
+ .pub-actions a{color:#4f625a;border-radius:14px;flex:1;flex-direction:column;align-items:center;gap:3px;min-width:0;padding:8px 2px;font-size:10px;display:flex}
+ .pub-actions a:last-child{color:#fff;background:#174e42}
+}

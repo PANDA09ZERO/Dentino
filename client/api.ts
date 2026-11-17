@@ -1,0 +1,3 @@
+let csrf='';
+export async function api<T=any>(url:string,method='GET',body?:unknown):Promise<T>{const form=body instanceof FormData;const response=await fetch('/api'+url,{method,cache:'no-store',credentials:'same-origin',headers:{...(form?{}:{'Content-Type':'application/json'}),...(method==='GET'?{}:{'X-CSRF-Token':csrf})},body:body===undefined?undefined:form?body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Object.assign(new Error(data.error||'No se pudo completar la operación'),{status:response.status});if(data.csrf)csrf=data.csrf;return data;}
+export const asset=(value:string)=>'/'+value.replace(/^\/?Dentino\//,'').replace(/^\.\.\//,'').replace(/^\//,'');

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-server/
+.env
+.env.*
+!.env.example
+uploads/
+database/*backup*
+*.log
+work/
+
+# Salidas generadas (video de presentación y grafo de graphify)
+brag-output/
+graphify-out/
