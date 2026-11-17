@@ -61,7 +61,7 @@ Las imágenes originales están en `images/`; los archivos clínicos siguen en `
 
 Respaldo íntegro del proyecto y volcado consistente de MySQL antes de la migración:
 
-`C:\Users\P_A_N\Documents\Codex\2026-10-10\linear-plugin-linear-openai-curated-remote\work\Dentino-backup`
+Se guarda fuera del repositorio, en una carpeta privada de la computadora local (no se publica la ruta). Contiene:
 
 - `Dentino/`: código original, configuración, imágenes, documentos y archivos subidos.
 - `mysql3307.sql`: base MySQL previa al cambio.
@@ -131,7 +131,7 @@ Para volver a ejecutar la carga sin duplicar registros:
 node --import tsx server/seed-demo.ts
 ```
 
-La carga es transaccional y deja el marcador `demo_20261010_v1` en `dentino_migrations`. No cambia las cuentas existentes. Los miembros del equipo ficticio tienen contraseñas aleatorias no publicadas; entra con tu cuenta habitual y consulta sus fichas desde Usuarios.
+La carga es transaccional y deja el marcador `demo_20261010_v1` en `dentino_migrations`. El manifiesto con los registros creados se guarda en `DEMO_OUTPUT_DIR` (por defecto `work/demo`, fuera de git) y lo usa `server/complete-demo-history.ts`. No cambia las cuentas existentes. Los miembros del equipo ficticio tienen contraseñas aleatorias no publicadas; entra con tu cuenta habitual y consulta sus fichas desde Usuarios.
 
 ## Verificación
 

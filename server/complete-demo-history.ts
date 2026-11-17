@@ -1,6 +1,8 @@
 import {readFile} from 'node:fs/promises';
+import path from 'node:path';
 import {pool,rows,exec,transaction,quote} from './db.js';
-const manifest=JSON.parse(await readFile('C:/Users/P_A_N/Documents/Codex/2026-10-10/linear-plugin-linear-openai-curated-remote/outputs/Dentino-datos-demo.json','utf8'));
+// Manifiesto que deja seed-demo.ts. Carpeta configurable con DEMO_OUTPUT_DIR (por defecto work/demo, excluida de git).
+const manifest=JSON.parse(await readFile(path.join(path.resolve(process.env.DEMO_OUTPUT_DIR||'work/demo'),'Dentino-datos-demo.json'),'utf8'));
 const ids:number[]=manifest.records.filter((r:any)=>r.table==='pacientes').map((r:any)=>r.id);
 async function summary(){return rows(`SELECT p.id_paciente,(SELECT COUNT(*) FROM antecedentes_medicos a WHERE a.id_paciente=p.id_paciente) antecedentes,(SELECT COUNT(*) FROM diagnosticos d WHERE d.id_paciente=p.id_paciente) diagnosticos,(SELECT COUNT(*) FROM odontograma_piezas o JOIN diagnosticos d ON d.id_diagnostico=o.id_diagnostico WHERE d.id_paciente=p.id_paciente) piezas,(SELECT COUNT(*) FROM planes_tratamiento t JOIN diagnosticos d ON d.id_diagnostico=t.id_diagnostico WHERE d.id_paciente=p.id_paciente) planes,(SELECT COUNT(*) FROM evoluciones e JOIN planes_tratamiento_detalle dt ON dt.id_detalle_plan=e.id_detalle_plan JOIN planes_tratamiento t ON t.id_plan=dt.id_plan JOIN diagnosticos d ON d.id_diagnostico=t.id_diagnostico WHERE d.id_paciente=p.id_paciente) evoluciones FROM pacientes p WHERE p.id_paciente IN (${ids.map(()=>'?')})`,ids);}
 try{

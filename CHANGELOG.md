@@ -1,5 +1,10 @@
 # Cambios
 
+## 2026-11-17 — Sin rutas personales en el repositorio público
+
+- `server/seed-demo.ts` y `server/complete-demo-history.ts`: la carpeta del manifiesto de la demo ya no está fija en una ruta personal. Se configura con `DEMO_OUTPUT_DIR` y por defecto es `work/demo`, excluida de git. Está documentada en `.env.example`.
+- `README.md`: se quitó la ruta local de los respaldos previos.
+
 ## 2026-11-17 — La Recepcionista cobra en caja
 
 - **Servidor** (`server/finance.ts`, `server/resources.ts`, `server/index.ts`, `shared/modules.ts`, con el nuevo indicador `cashier` y la función `cashierCan`): la Recepcionista puede ver la caja del día (sin el historial), registrar movimientos manuales y pagos de pacientes, ver el estado de cuenta, y emitir, listar y ver el detalle de comprobantes. Siguen siendo solo del Administrador: anular pagos, eliminar comprobantes, enviarlos por correo y el historial y detalle de cajas. El Doctor y el Doctor externo siguen sin acceso a caja.

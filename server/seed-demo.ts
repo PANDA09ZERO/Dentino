@@ -53,7 +53,8 @@ try {
   await insert('comprobantes',{id_movimiento:payment,tipo_comprobante:'Boleta',serie:'DEMO',correlativo:1});
   return {patients:patients.length,staff:staff.length,appointments:6,plans:3,records:manifest.length};
  });
- const output=path.resolve('C:/Users/P_A_N/Documents/Codex/2026-10-10/linear-plugin-linear-openai-curated-remote/outputs');
+ // Carpeta del manifiesto de la demo: DEMO_OUTPUT_DIR o, por defecto, work/demo (excluida de git; contiene ids de registros de demostración).
+ const output=path.resolve(process.env.DEMO_OUTPUT_DIR||'work/demo');
  await mkdir(output,{recursive:true});await writeFile(path.join(output,'Dentino-datos-demo.json'),JSON.stringify({marker,date:today,summary,records:manifest},null,2));
  console.log(JSON.stringify({created:true,...summary}));
 }catch(error){if((error as Error).message==='DEMO_ALREADY_LOADED')console.log('Los datos DEMO ya estaban cargados; no se duplicaron.');else {console.error('No se cargaron datos:',(error as any).code||(error as Error).message);process.exitCode=1;}}
