@@ -25,7 +25,7 @@ small{font-size:13px}
 .avatar.soft{background:var(--c-bg-muted);color:var(--c-text-muted)}
 
 /* ---- Cabecera superior ---- */
-.topbar{height:64px;background:rgb(250 249 247 / 90%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--c-line);position:sticky;top:0;z-index:4}
+.topbar{height:64px;background:var(--c-glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--c-line);position:sticky;top:0;z-index:4}
 .breadcrumb{font-size:14px;color:var(--c-text-subtle);gap:8px}
 .crumb{gap:8px}
 .crumb:last-child{color:var(--c-text);font-weight:500}
@@ -55,7 +55,7 @@ h3{font-size:17px}
 .button:hover{background:var(--c-bg-muted);border-color:var(--c-line-strong)}
 .button.primary,.button.dark{background:var(--c-action);border-color:var(--c-action);color:var(--c-on-action)}
 .button.primary:hover,.button.dark:hover{background:var(--c-action-hover);border-color:var(--c-action-hover)}
-.button.danger{background:var(--c-danger);border-color:var(--c-danger);color:#fff}
+.button.danger{background:var(--c-danger);border-color:var(--c-danger);color:var(--c-on-action)}
 .button.small{min-height:32px;padding:6px 12px;font-size:13px}
 .icon-btn{border-radius:var(--radius-sm);color:var(--c-text-muted)}
 .icon-btn:hover{background:var(--c-bg-muted);color:var(--c-text)}
@@ -124,8 +124,9 @@ tbody tr:hover{background:var(--c-bg)}
 
 /* ---- Formularios ---- */
 label{font-size:13px;font-weight:500;color:var(--c-text)}
-input,select,textarea{font-size:14px;color:var(--c-text);min-height:42px;border-color:var(--c-line);border-radius:var(--radius-sm);transition:border-color var(--dur-fast),box-shadow var(--dur-fast)}
-input:hover,select:hover,textarea:hover{border-color:var(--c-line-strong)}
+input,select,textarea{font-size:14px;color:var(--c-text);min-height:42px;border-color:var(--c-field-border);border-radius:var(--radius-sm);transition:border-color var(--dur-fast),box-shadow var(--dur-fast)}
+input:hover,select:hover,textarea:hover{border-color:var(--c-text-muted)}
+.tile-title a{display:inline-block;min-height:24px;padding:2px 0}
 input:focus,select:focus,textarea:focus{outline:0;border-color:var(--c-action);box-shadow:0 0 0 3px var(--c-action-soft)}
 input::placeholder,textarea::placeholder{color:var(--c-text-subtle)}
 button:focus-visible,a:focus-visible{outline:2px solid var(--c-focus);outline-offset:2px}
@@ -167,7 +168,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--c-focus);outline-of
  .page-header h1{font-size:28px}
  .topbar{height:56px}
  .welcome-art{width:26%;min-width:80px}
- .bottom-nav{background:rgb(255 255 255 / 96%)}
+ .bottom-nav{background:var(--c-glass-surface)}
  .bottom-nav a,.bottom-nav button{font-size:11px;border-radius:var(--radius-md)}
  .bottom-nav .active{color:var(--c-action);font-weight:600}
  .login-layout{grid-template-columns:1fr}

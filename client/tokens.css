@@ -12,6 +12,7 @@
   --c-surface:#FFFFFF;       /* tarjetas, modales, campos */
   --c-line:#E4E1DC;          /* bordes de 1 px */
   --c-line-strong:#CFCAC3;
+  --c-field-border:#858C8F;  /* borde de campos: ≥3:1 en todos los fondos (WCAG 1.4.11) */
 
   /* ---- Color: texto ---- */
   --c-text:#1E2427;          /* grafito */
@@ -34,6 +35,9 @@
   --c-wood:#B98A5B;          /* roble */
   --c-wood-dark:#A87A4D;
   --c-focus:#5B2A86;
+  --c-on-plum:#FFFFFF;       /* texto sobre ciruela */
+  --c-glass:rgb(250 249 247 / 92%);      /* barras fijas translúcidas sobre papel */
+  --c-glass-surface:rgb(255 255 255 / 96%);
 
   /* ---- Color: estados ---- */
   --c-warn:#8A5A1E;          /* pendiente, por confirmar */
@@ -75,11 +79,12 @@
 
 /* Modo oscuro: se activa con <html data-theme="dark">. */
 :root[data-theme="dark"]{
-  --c-bg:#151A1C;--c-bg-muted:#1C2226;--c-surface:#1F2629;--c-line:#2F383C;--c-line-strong:#3E494E;
+  --c-bg:#151A1C;--c-bg-muted:#1C2226;--c-surface:#1F2629;--c-line:#2F383C;--c-line-strong:#3E494E;--c-field-border:#7D898E;
   --c-text:#ECEFEF;--c-text-muted:#A9B2B5;--c-text-subtle:#8E989C;
   --c-brand:#1FC9B4;--c-action:#2BB8A5;--c-action-hover:#4BCFBC;--c-action-soft:#17332F;--c-on-action:#0D1A18;
   --c-plum:#B795E6;--c-plum-hover:#CBB0F0;--c-plum-light:#B795E6;--c-plum-soft:#2A2236;--c-plum-line:#3D3150;
-  --c-focus:#B795E6;
+  --c-focus:#B795E6;--c-on-plum:#1A1225;
+  --c-glass:rgb(21 26 28 / 92%);--c-glass-surface:rgb(31 38 41 / 96%);
   --c-warn:#E7B877;--c-warn-soft:#33281A;--c-danger:#EE9A8C;--c-danger-soft:#3A221E;
   --shadow-pop:0 10px 30px rgb(0 0 0 / 40%);--shadow-modal:0 20px 80px rgb(0 0 0 / 55%);
   color-scheme:dark;
