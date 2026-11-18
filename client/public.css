@@ -135,7 +135,7 @@ a.pub-fact:hover b{text-decoration:underline;text-underline-offset:3px}
 .pub-footer-brand{display:flex;align-items:center;gap:var(--space-3);font-size:14px;color:var(--c-text-muted);line-height:1.5}
 .pub-footer-brand b{display:block;color:var(--c-text);font-weight:600}
 .pub-footer nav{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-1) var(--space-5);font-size:14px}
-.pub-footer nav a{color:var(--c-text-muted)}
+.pub-footer nav a,.pub-footer .pub-link{display:inline-flex;align-items:center;min-height:32px;color:var(--c-text-muted)}
 .pub-footer nav a:hover{color:var(--c-text);text-decoration:underline;text-underline-offset:3px}
 .pub-footer small{flex-basis:100%;color:var(--c-text-subtle);font-size:13px}
 .pub-link{background:0 0;border:0;padding:0;color:var(--c-text-muted);font-size:14px}

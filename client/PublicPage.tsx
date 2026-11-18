@@ -7,6 +7,8 @@ import './public.css';
 type Row=Record<string,any>;
 const serviceIcons=[HeartPulse,Sparkles,ShieldCheck];
 const gallery=['clinica-1.jpg','clinica-2.jpg','clinica-3.jpg','clinica-4.jpg','clinica-5.jpg','clinica-6.jpg','clinica-7.jpg','clinica-8.jpg'];
+// Cada foto tiene una versión ligera de 640 px en /images/sm/: el navegador elige según el tamaño en pantalla.
+const photo=(img:string)=>({src:'/images/sm/'+img,srcSet:'/images/sm/'+img+' 640w, /images/'+img+' 1200w'});
 // Desplaza a una sección sin cambiar el hash de la dirección (el hash se usa como ruta de la aplicación).
 const jump=(id:string)=>(e:MouseEvent)=>{e.preventDefault();document.getElementById(id)?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});};
 function Fact({icon,label,href,external,children}:{icon:ReactNode;label:string;href?:string;external?:boolean;children:ReactNode}){
@@ -70,7 +72,7 @@ export function PublicPage({onLogin,error}:{onLogin:()=>void;error:string}){
      </div>}
     </div>
     <div className="pub-room">
-     <img src="/images/clinica-4.jpg" alt="Consultorio de la clínica con paneles de madera y luz cálida" fetchPriority="high"/>
+     <img {...photo('clinica-4.jpg')} sizes="(max-width: 900px) 92vw, 560px" alt="Consultorio de la clínica con paneles de madera y luz cálida" fetchPriority="high"/>
      <span className="pub-slats" aria-hidden="true"/>
      <a className="pub-room-tag" href="#contacto" onClick={jump('contacto')}><b>¿Primera visita?</b><span>Pide tu cita en un minuto</span></a>
     </div>
@@ -95,7 +97,7 @@ export function PublicPage({onLogin,error}:{onLogin:()=>void;error:string}){
 
    <section className="pub-wrap pub-section" id="galeria" aria-labelledby="pub-galeria">
     <div className="pub-section-head"><h2 id="pub-galeria">Conoce la clínica</h2><p>Un espacio cálido y ordenado, pensado para que estés tranquilo durante tu atención.</p></div>
-    <div className="pub-gallery">{gallery.map((img,i)=><img key={img} src={'/images/'+img} alt={'Instalaciones de la clínica, foto '+(i+1)} loading="lazy"/>)}</div>
+    <div className="pub-gallery">{gallery.map((img,i)=><img key={img} {...photo(img)} sizes={i===0||i===gallery.length-1?'(max-width: 760px) 78vw, 600px':'(max-width: 760px) 78vw, 300px'} alt={'Instalaciones de la clínica, foto '+(i+1)} loading="lazy"/>)}</div>
    </section>
 
    {banner?<section className="pub-wrap pub-section" id="promociones" aria-labelledby="pub-promo">
@@ -107,7 +109,8 @@ export function PublicPage({onLogin,error}:{onLogin:()=>void;error:string}){
 
    <section className={'pub-wrap pub-section pub-contact'+(hasMap||hasInfo?'':' pub-contact-solo')} id="contacto" aria-labelledby="pub-contacto">
     <div className="pub-form">
-     <h2 id="pub-contacto">{get('contacto_titulo')||'Solicita tu cita'}</h2>
+     {/* El título configurado (p. ej. «Contacto y ubicación») solo se usa si hay ubicación que mostrar. */}
+     <h2 id="pub-contacto">{(address||hasMap)&&get('contacto_titulo')||'Solicita tu cita'}</h2>
      <p>Déjanos tus datos y te contactamos para acordar el día y la hora.</p>
      <ContactForm interests={interests} tel={tel} wa={wa}/>
     </div>

@@ -16,7 +16,7 @@
   /* ---- Color: texto ---- */
   --c-text:#1E2427;          /* grafito */
   --c-text-muted:#5F676B;
-  --c-text-subtle:#737B7F;
+  --c-text-subtle:#666E72;   /* ≥4.5:1 sobre papel, hundido y blanco */
 
   /* ---- Color: marca y acción ---- */
   --c-brand:#00B3A0;         /* menta Dentino (decorativo, logo) */
