@@ -1,3 +1,4 @@
+import {randomBytes} from 'node:crypto';
 import {Router,type Request} from 'express';
 import bcrypt from 'bcryptjs';
 import {modules,label,enumValues,cashierCan,type Field,type Module} from '../shared/modules.js';
@@ -18,7 +19,7 @@ export async function loadSchemas(){
   const fk=fks.find(f=>f.TABLE_NAME===mod.table&&f.COLUMN_NAME===c.COLUMN_NAME);const ref=modules.find(m=>m.table===fk?.REFERENCED_TABLE_NAME);
   let options=enumValues[c.COLUMN_NAME];if(c.COLUMN_NAME==='estado')options=mod.key==='citas'?['Pendiente','Confirmada','Atendida','Cancelada','Reprogramada','No asistió']:['Activo','Inactivo'];
   if(c.COLUMN_TYPE.startsWith('enum('))options=[...c.COLUMN_TYPE.matchAll(/'([^']*)'/g)].map((x:RegExpMatchArray)=>x[1]);
-  const read=c.COLUMN_NAME===mod.pk||c.COLUMN_NAME==='pin_autorizacion'||c.COLUMN_NAME==='archivado'||/^(fecha_registro|fecha_creacion|fecha_subida|fecha_evolucion|fecha_diagnostico|fecha_emision|ultima_actualizacion|updated_at)$/.test(c.COLUMN_NAME)||/auto_increment|DEFAULT_GENERATED/.test(c.EXTRA)||['correlativo','id_promocion_aplicada'].includes(c.COLUMN_NAME)||mod.key==='planes'&&['costo_total','monto_pagado','estado_pago'].includes(c.COLUMN_NAME)||mod.key==='inventario'&&c.COLUMN_NAME==='stock_actual';
+  const read=c.COLUMN_NAME===mod.pk||c.COLUMN_NAME==='pin_autorizacion'||c.COLUMN_NAME==='cambio_clave_pendiente'||c.COLUMN_NAME==='archivado'||/^(fecha_registro|fecha_creacion|fecha_subida|fecha_evolucion|fecha_diagnostico|fecha_emision|ultima_actualizacion|updated_at)$/.test(c.COLUMN_NAME)||/auto_increment|DEFAULT_GENERATED/.test(c.EXTRA)||['correlativo','id_promocion_aplicada'].includes(c.COLUMN_NAME)||mod.key==='planes'&&['costo_total','monto_pagado','estado_pago'].includes(c.COLUMN_NAME)||mod.key==='inventario'&&c.COLUMN_NAME==='stock_actual';
   return {name:c.COLUMN_NAME,label:label(c.COLUMN_NAME),type:c.COLUMN_NAME==='contrasena'||c.COLUMN_NAME==='pin_autorizacion'?'password':c.COLUMN_NAME==='ruta_archivo'?'file':c.DATA_TYPE==='date'||c.COLUMN_NAME==='fecha_nacimiento'||c.COLUMN_NAME==='fecha'?'date':c.DATA_TYPE.includes('time')?'datetime-local':c.COLUMN_TYPE==='tinyint(1)'?'checkbox':/int|decimal|float|double/.test(c.DATA_TYPE)?'number':c.DATA_TYPE.includes('text')?'textarea':c.COLUMN_NAME==='correo'?'email':c.COLUMN_NAME==='hora'?'time':'text',required:c.IS_NULLABLE==='NO'&&c.COLUMN_DEFAULT===null&&!read,default:c.COLUMN_DEFAULT,options,ref:ref?{module:ref.key,pk:ref.pk}:undefined,readonly:read,max:c.CHARACTER_MAXIMUM_LENGTH};
  }));}
 }
@@ -36,6 +37,7 @@ export async function clean(mod:Module,body:Record<string,any>,creating:boolean)
    if(field.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))fail(400,'Correo electrónico inválido');
    if(field.type==='date'&&(!/^\d{4}-\d{2}-\d{2}$/.test(value)||Number.isNaN(Date.parse(value))||new Date(value).toISOString().slice(0,10)!==value))fail(400,`${field.label}: fecha inválida`);
    if(field.type==='time'&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(value))fail(400,'Hora inválida');
+   if(/^(telefono|ruc|numero_colegiatura)$/.test(field.name)&&!/^\d+$/.test(value))fail(400,`${field.label} solo admite números`);
    if(field.name==='dni'&&!/^\d{8,15}$/.test(value))fail(400,'El DNI debe tener entre 8 y 15 dígitos');
    if(/^(precio_base|monto_pagado|descuento_aplicado|costo_unitario|stock_minimo|duracion_estimada|duracion_minutos|descuento_porcentaje)$/.test(field.name)&&value<0)fail(400,`${field.label} no puede ser negativo`);
    if(field.name==='ruta_archivo'&&!/^uploads\/examenes\/[A-Za-z0-9_.-]+\.(pdf|png|jpg|jpeg|webp)$/i.test(value))fail(400,'Selecciona un archivo clínico válido');
@@ -62,7 +64,16 @@ resourceRouter.get('/:module',async(req,res)=>{
  const data=await rows(`SELECT ${fields.map(f=>quote(f.name)).join(',')} FROM ${quote(mod.table)}${filter} ORDER BY ${quote(mod.pk)} DESC LIMIT ? OFFSET ?`,[...params,size,(page-1)*size]);if(signableModules.includes(mod.key))await attachSignatures(req,mod.key,mod.pk,data);res.json({data,total:count[0].total,page,size});
 });
 resourceRouter.get('/:module/:id',async(req,res)=>{const mod=checkModule(req,String(req.params.module));const id=positiveId(req.params.id);const data=await rows(`SELECT ${safeFields(mod).map(f=>quote(f.name)).join(',')} FROM ${quote(mod.table)} WHERE ${quote(mod.pk)}=?`,[id]);const record=data[0]||fail(404,'Registro no encontrado');await assertAccess(req,mod.key,record);res.json(record);});
-resourceRouter.post('/:module',async(req,res)=>{const mod=checkModule(req,String(req.params.module));if(mod.readonly)fail(405,'Usa el flujo de movimientos de inventario');if(mod.key==='planes'&&(Number(req.body.monto_pagado||0)!==0||req.body.estado_pago&&req.body.estado_pago!=='Pendiente'))fail(400,'Registra los pagos desde Caja');const data=await clean(mod,req.body,true);assertAuthor(req,mod.key,data,null);await assertAccess(req,mod.key,data);const id=await transaction(async db=>{
+resourceRouter.post('/:module',async(req,res)=>{const mod=checkModule(req,String(req.params.module));if(mod.readonly)fail(405,'Usa el flujo de movimientos de inventario');if(mod.key==='planes'&&(Number(req.body.monto_pagado||0)!==0||req.body.estado_pago&&req.body.estado_pago!=='Pendiente'))fail(400,'Registra los pagos desde Caja');let credentials:{correo:string;contrasena:string}|undefined;
+ if(mod.key==='usuarios'){
+  const nombre=String(req.body.nombre||'').toLowerCase().replace(/[^a-záéíóúñ]/g,'');
+  const apellido=String(req.body.apellido||'').toLowerCase().replace(/[^a-záéíóúñ]/g,'');
+  let base=(nombre+'.'+apellido).slice(0,20);
+  let correo=base+'@dentino.pe',suffix=1;
+  while((await rows('SELECT 1 FROM usuarios WHERE correo=?',[correo])).length)correo=base+(suffix++)+'@dentino.pe';
+  credentials={correo,contrasena:randomBytes(12).toString('base64url')};req.body={...req.body,...credentials};
+ }
+ const data=await clean(mod,req.body,true);if(credentials)data.cambio_clave_pendiente=1;assertAuthor(req,mod.key,data,null);await assertAccess(req,mod.key,data);const id=await transaction(async db=>{
  if(mod.key==='citas'){await assertCanSchedule(req,data,null,db);await validateAppointment(data,0,db);}
  if(mod.key==='antecedentes'){await rows('SELECT id_paciente FROM pacientes WHERE id_paciente=? FOR UPDATE',[data.id_paciente],db);if((await rows('SELECT 1 FROM antecedentes_medicos WHERE id_paciente=?',[data.id_paciente],db)).length)fail(409,'Este paciente ya tiene antecedentes. Edita el registro existente.');data.ultima_actualizacion=(await rows('SELECT NOW() n',[],db))[0].n;}
  if(mod.key==='comprobantes'){await rows("SELECT id_usuario FROM usuarios WHERE rol='Administrador' ORDER BY id_usuario LIMIT 1 FOR UPDATE",[],db);const movement=(await rows('SELECT tipo_movimiento,anulado FROM caja_movimientos WHERE id_movimiento=? FOR UPDATE',[data.id_movimiento],db))[0];if(!movement||movement.tipo_movimiento!=='Ingreso'||movement.anulado)fail(400,'Selecciona un ingreso de caja vigente');if((await rows('SELECT 1 FROM comprobantes WHERE id_movimiento=? FOR UPDATE',[data.id_movimiento],db)).length)fail(409,'El movimiento ya tiene comprobante');
@@ -74,7 +85,7 @@ resourceRouter.post('/:module',async(req,res)=>{const mod=checkModule(req,String
   await exec('UPDATE comprobantes_correlativos SET ultimo=? WHERE tipo_comprobante=? AND serie=?',[data.correlativo,data.tipo_comprobante,data.serie],db);}
  if(mod.key==='detalles')await rows('SELECT id_plan FROM planes_tratamiento WHERE id_plan=? FOR UPDATE',[data.id_plan],db);
  const newId=await insert(mod,data,db);if(mod.key==='diagnosticos'&&req.body.odontograma){await saveOdontogram(newId,req.body.odontograma,db);await syncLatestVersion(newId,req.session.user!.id_usuario,db);}if(mod.key==='detalles')await recalculatePlan(data.id_plan,db);await audit(req,mod.key,newId,'crear',db);return newId;
- });res.status(201).json({id});});
+ });res.setHeader('Cache-Control','no-store');res.status(201).json({id,...(credentials?{credentials}:{})});});
 resourceRouter.put('/:module/:id',async(req,res)=>{const mod=checkModule(req,String(req.params.module));if(mod.readonly)fail(405,'Registro de auditoría no editable');if(mod.noEdit)fail(405,'Un comprobante emitido no se edita. Elimínalo y emite uno nuevo si es necesario.');const id=positiveId(req.params.id);const data=await clean(mod,req.body,false);await transaction(async db=>{
  const old=(await rows(`SELECT * FROM ${quote(mod.table)} WHERE ${quote(mod.pk)}=? FOR UPDATE`,[id],db))[0]||fail(404,'Registro no encontrado');await assertAccess(req,mod.key,old,db);await assertAccess(req,mod.key,{...old,...data},db);assertAuthor(req,mod.key,data,old);await assertUnsigned(mod.key,id,db);await assertParentUnsigned(mod.key,old,db);
  if(mod.key==='planes'){if(req.body.monto_pagado!==undefined&&Number(req.body.monto_pagado)!==Number(old.monto_pagado)||req.body.estado_pago!==undefined&&req.body.estado_pago!==old.estado_pago)fail(409,'El importe pagado se actualiza únicamente al registrar pagos en Caja');if(Number(old.costo_total)-Number(data.descuento_aplicado??old.descuento_aplicado)<Number(old.monto_pagado))fail(409,'El total del plan no puede quedar por debajo de lo ya pagado');}

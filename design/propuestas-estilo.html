@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propuestas de estilo Dentino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Onest:wght@400;500;600&family=Schibsted+Grotesk:wght@500;600;700;800&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#E9E7EC;color:#222;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  :focus-visible{outline:3px solid #6A47B8;outline-offset:3px}
+
+  /* ---------- Selector ---------- */
+  .switcher{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #DDD9E2}
+  .switcher-in{max-width:1240px;margin:auto;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .switcher h1{font-size:15px;font-weight:600;margin:0 auto 0 0;color:#444}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tabs button{font:600 14px Figtree,sans-serif;border:1px solid #D4CFDB;background:#fff;color:#333;border-radius:10px;padding:9px 14px;cursor:pointer}
+  .tabs button[aria-selected=true]{background:#2A2433;color:#fff;border-color:#2A2433}
+  .proposal{display:none}
+  .proposal.on{display:block}
+
+  /* ---------- Ficha técnica (común) ---------- */
+  .spec{max-width:1240px;margin:0 auto;padding:40px 20px 70px}
+  .spec-card{background:#fff;border-radius:16px;padding:28px;display:grid;grid-template-columns:1.1fr 1fr;gap:36px}
+  .spec h2{font:700 24px Figtree,sans-serif;margin:0 0 6px;letter-spacing:-.01em}
+  .spec p{margin:0 0 14px;line-height:1.6;color:#555;max-width:62ch}
+  .spec dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:10px 16px;font-size:14px}
+  .spec dt{color:#777}
+  .spec dd{margin:0;color:#222}
+  .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .sw{border-radius:10px;overflow:hidden;border:1px solid #E6E3EA;font-size:12px}
+  .sw i{display:block;height:58px}
+  .sw span{display:block;padding:7px 9px;line-height:1.35}
+  .sw b{display:block;font-weight:600;color:#222}
+  .sw code{color:#666;font-size:11px}
+
+  /* =========================================================
+     PROPUESTA 1 · Madera y lila
+     ========================================================= */
+  .p1{--lino:#F8F6F4;--roble:#B98A5B;--roble-claro:#E7D6C2;--lila:#BBA2EA;--ciruela:#5B2A86;--menta:#16A58E;--tinta:#2A2433;--gris:#6B6473;
+      background:var(--lino);color:var(--tinta);font-family:Figtree,sans-serif}
+  .p1 .wrap{max-width:1240px;margin:auto;padding:0 20px}
+  .p1 nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .p1 .logo{display:flex;align-items:center;gap:10px;font:20px 'Young Serif',serif}
+  .p1 .logo img{width:38px}
+  .p1 .navlinks{display:flex;gap:28px;font-size:15px;color:var(--gris)}
+  .p1 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font:600 15px Figtree,sans-serif;text-decoration:none;border:1px solid transparent}
+  .p1 .btn-main{background:var(--ciruela);color:#fff}
+  .p1 .btn-main:hover{background:#4A1F70}
+  .p1 .btn-ghost{border-color:#CFC4DD;color:var(--tinta)}
+  .p1 .hero{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;padding:40px 0 80px}
+  .p1 h2.display{font:400 clamp(40px,5.4vw,68px)/1.06 'Young Serif',serif;letter-spacing:-.015em;margin:0 0 22px;max-width:14ch}
+  .p1 .lead{font-size:18px;line-height:1.7;color:var(--gris);max-width:44ch;margin:0 0 30px}
+  .p1 .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .p1 .room{position:relative;aspect-ratio:4/4.4}
+  .p1 .room img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:20px 220px 20px 20px}
+  /* Panel de listones con el corte orgánico de la pared de la clínica */
+  .p1 .slats{position:absolute;left:-28px;bottom:-28px;width:42%;height:58%;border-radius:0 60% 0 20px/0 80% 0 20px;
+      background:repeating-linear-gradient(90deg,var(--roble) 0 9px,#A87A4D 9px 11px);box-shadow:0 24px 50px rgba(90,60,30,.25)}
+  .p1 .slats::after{content:"";position:absolute;top:8%;right:14%;width:2px;height:70%;background:#FFE2A8;box-shadow:0 0 18px 4px #FFD58A;border-radius:2px}
+  .p1 .treat{padding:80px 0;border-top:1px solid #E7E0EA}
+  .p1 h3.sec{font:400 38px/1.15 'Young Serif',serif;margin:0 0 36px;max-width:22ch}
+  .p1 .list{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+  .p1 .item{padding:22px 0;border-top:1px solid #E2DAE6}
+  .p1 .item h4{font:600 19px Figtree,sans-serif;margin:0 0 6px}
+  .p1 .item p{margin:0;color:var(--gris);line-height:1.6}
+  .p1 .band{background:var(--ciruela);color:#fff;border-radius:28px;padding:48px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:60px}
+  .p1 .band h3{font:400 32px/1.2 'Young Serif',serif;margin:0;max-width:20ch}
+  .p1 .band .btn{background:#fff;color:var(--ciruela)}
+
+  /* =========================================================
+     PROPUESTA 2 · Clínica luminosa
+     ========================================================= */
+  .p2{--blanco:#FFFFFF;--niebla:#EEF4F5;--menta:#00B3A0;--menta-prof:#00756A;--lila:#8A5CF0;--grafito:#16232A;--gris:#5A6870;--linea:#D9E3E6;
+      background:var(--blanco);color:var(--grafito);font-family:Onest,sans-serif}
+  .p2 .wrap{max-width:1240px;margin:auto;padding:0 20px}
+  .p2 nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--linea)}
+  .p2 .logo{display:flex;align-items:center;gap:10px;font:800 19px 'Schibsted Grotesk',sans-serif;letter-spacing:-.02em}
+  .p2 .logo img{width:32px}
+  .p2 .navlinks{display:flex;gap:26px;font-size:15px;color:var(--gris)}
+  .p2 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:13px 20px;font:600 15px 'Schibsted Grotesk',sans-serif;text-decoration:none;border:1px solid transparent}
+  .p2 .btn-main{background:var(--menta-prof);color:#fff}
+  .p2 .btn-main:hover{background:#005E55}
+  .p2 .btn-ghost{border-color:var(--linea);color:var(--grafito)}
+  .p2 .hero{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--linea)}
+  .p2 .hero-text{padding:72px 48px 72px 0;border-right:1px solid var(--linea)}
+  .p2 h2.display{font:700 clamp(40px,5vw,64px)/1.02 'Schibsted Grotesk',sans-serif;letter-spacing:-.035em;margin:0 0 22px}
+  .p2 .lead{font-size:18px;line-height:1.65;color:var(--gris);max-width:42ch;margin:0 0 30px}
+  .p2 .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .p2 .facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:1px solid var(--linea)}
+  .p2 .facts div{padding:16px 16px 0 0;font-size:14px;color:var(--gris);line-height:1.5}
+  .p2 .facts strong{display:block;font:600 16px 'Schibsted Grotesk',sans-serif;color:var(--grafito)}
+  /* Firma: dibujo técnico del diente sobre la foto */
+  .p2 .scan{position:relative;background:var(--niebla);overflow:hidden;min-height:520px}
+  .p2 .scan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.75) brightness(1.05);mix-blend-mode:multiply;opacity:.9}
+  .p2 .scan svg{position:absolute;right:8%;top:12%;width:46%;color:#fff;filter:drop-shadow(0 2px 8px rgba(0,60,55,.45))}
+  .p2 .scan .tag{position:absolute;left:24px;bottom:24px;background:#fff;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.4;box-shadow:0 10px 30px rgba(22,35,42,.15)}
+  .p2 .tag b{display:flex;align-items:center;gap:8px;font-family:'Schibsted Grotesk',sans-serif}
+  .p2 .tag b::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--menta)}
+  .p2 .steps{padding:72px 0}
+  .p2 h3.sec{font:700 34px/1.1 'Schibsted Grotesk',sans-serif;letter-spacing:-.025em;margin:0 0 32px}
+  .p2 .steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+  .p2 .steps li{border:1px solid var(--linea);border-radius:12px;padding:24px;counter-increment:s}
+  .p2 .steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--menta-prof);color:var(--menta-prof);font:700 15px 'Schibsted Grotesk',sans-serif;margin-bottom:18px}
+  .p2 .steps h4{font:600 18px 'Schibsted Grotesk',sans-serif;margin:0 0 6px}
+  .p2 .steps p{margin:0;color:var(--gris);line-height:1.6}
+  .p2 .chips{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:70px}
+  .p2 .chips span{border:1px solid var(--linea);border-radius:8px;padding:10px 14px;font-size:15px}
+  .p2 .chips span.hl{border-color:var(--lila);color:#5B34C4;background:#F4EFFF}
+
+  /* =========================================================
+     PROPUESTA 3 · Sonrisa cercana
+     ========================================================= */
+  .p3{--nube:#F5F0FF;--lila:#C9A5EC;--uva:#5E3496;--menta:#00A894;--menta-suave:#D7F5EF;--sol:#FFD27A;--tinta:#2E2440;--gris:#675E78;
+      background:var(--nube);color:var(--tinta);font-family:'Nunito Sans',sans-serif}
+  .p3 .wrap{max-width:1240px;margin:auto;padding:0 20px}
+  .p3 nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .p3 .logo{display:flex;align-items:center;gap:10px;font:800 22px 'Baloo 2',sans-serif}
+  .p3 .logo img{width:40px}
+  .p3 .logo em{font-style:normal;color:#A06AD8}
+  .p3 .logo span:first-of-type{color:var(--menta)}
+  .p3 .navlinks{display:flex;gap:26px;font-size:16px;font-weight:600;color:var(--gris)}
+  .p3 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 24px;font:700 16px 'Nunito Sans',sans-serif;text-decoration:none;border:2px solid transparent}
+  .p3 .btn-main{background:var(--uva);color:#fff;box-shadow:0 6px 0 #3F2068}
+  .p3 .btn-main:hover{transform:translateY(2px);box-shadow:0 4px 0 #3F2068}
+  .p3 .btn-ghost{border-color:var(--uva);color:var(--uva)}
+  .p3 .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:30px 0 70px}
+  .p3 h2.display{font:800 clamp(42px,5.6vw,72px)/1 'Baloo 2',sans-serif;letter-spacing:-.02em;margin:0 0 20px}
+  .p3 .lead{font-size:19px;line-height:1.65;color:var(--gris);max-width:42ch;margin:0 0 28px}
+  .p3 .cta{display:flex;gap:12px;flex-wrap:wrap}
+  /* Firma: foto recortada con la silueta del diente del logo */
+  .p3 .tooth-photo{position:relative;max-width:470px;margin-left:auto;width:100%}
+  .p3 .tooth-photo .bg{position:absolute;inset:6% -4% -4% 6%;background:var(--lila);clip-path:url(#tooth);}
+  .p3 .tooth-photo img{position:relative;width:100%;aspect-ratio:1/1.05;object-fit:cover;clip-path:url(#tooth)}
+  .p3 .heart{position:absolute;top:21%;left:47%;width:15%;color:#fff;filter:drop-shadow(0 4px 10px rgba(94,52,150,.35))}
+  .p3 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:40px}
+  .p3 .c{background:#fff;border-radius:28px;padding:28px}
+  .p3 .c.mint{background:var(--menta-suave)}
+  .p3 .c.sun{background:#FFF3D6}
+  .p3 .c h4{font:700 24px/1.1 'Baloo 2',sans-serif;margin:0 0 8px}
+  .p3 .c p{margin:0;color:var(--gris);line-height:1.6;font-size:16px}
+  .p3 .kids{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--uva);color:#fff;border-radius:36px;padding:36px 40px;margin-bottom:60px}
+  .p3 .kids img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:4px solid var(--lila)}
+  .p3 .kids h3{font:700 30px/1.1 'Baloo 2',sans-serif;margin:0 0 6px}
+  .p3 .kids p{margin:0;opacity:.85;line-height:1.55}
+  .p3 .kids .btn{background:var(--sol);color:var(--tinta);box-shadow:none}
+
+  /* =========================================================
+     COMBINACIÓN 1 + 2 · Madera clínica
+     ========================================================= */
+  .p4{--papel:#FAF9F7;--blanco:#FFFFFF;--menta:#00B3A0;--menta-prof:#00756A;--menta-suave:#E3F4F1;--roble:#B98A5B;--ciruela:#5B2A86;--lila:#BBA2EA;--lila-suave:#F3EEFC;--grafito:#1E2427;--gris:#5F676B;--linea:#E4E1DC;
+      background:var(--papel);color:var(--grafito);font-family:Onest,sans-serif}
+  .p4 .wrap{max-width:1240px;margin:auto;padding:0 20px}
+  .p4 nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--linea)}
+  .p4 .logo{display:flex;align-items:center;gap:10px;font:21px 'Young Serif',serif}
+  .p4 .logo img{width:34px}
+  .p4 .navlinks{display:flex;gap:28px;font-size:15px;color:var(--gris)}
+  .p4 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:13px 20px;font:600 15px Onest,sans-serif;text-decoration:none;border:1px solid transparent;transition:background .15s}
+  .p4 .btn-main{background:var(--menta-prof);color:#fff}
+  .p4 .btn-main:hover{background:#005E55}
+  .p4 .btn-ghost{border-color:var(--linea);background:var(--blanco);color:var(--grafito)}
+  .p4 .btn-ghost:hover{border-color:#CFCAC3}
+  .p4 .hero{display:grid;grid-template-columns:1fr 1.02fr;gap:56px;align-items:center;padding:56px 0 72px}
+  .p4 h2.display{font:400 clamp(40px,5.2vw,66px)/1.06 'Young Serif',serif;letter-spacing:-.015em;margin:0 0 22px;max-width:14ch}
+  .p4 .lead{font-size:18px;line-height:1.65;color:var(--gris);max-width:44ch;margin:0 0 30px}
+  .p4 .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .p4 .facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px;border-top:1px solid var(--linea)}
+  .p4 .facts div{padding:16px 16px 0 0;font-size:14px;color:var(--gris);line-height:1.5}
+  .p4 .facts strong{display:block;font-weight:600;font-size:15px;color:var(--grafito);margin-bottom:2px}
+  .p4 .room{position:relative;aspect-ratio:4/4.3}
+  .p4 .room img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px 200px 12px 12px}
+  .p4 .slats{position:absolute;left:-26px;bottom:-26px;width:40%;height:56%;border-radius:0 60% 0 12px/0 80% 0 12px;
+      background:repeating-linear-gradient(90deg,var(--roble) 0 9px,#A87A4D 9px 11px);box-shadow:0 24px 50px rgba(90,60,30,.22)}
+  .p4 .slats::after{content:"";position:absolute;top:8%;right:14%;width:2px;height:70%;background:#FFE2A8;box-shadow:0 0 18px 4px #FFD58A;border-radius:2px}
+  .p4 .tag{position:absolute;right:18px;bottom:18px;background:var(--blanco);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.4;box-shadow:0 10px 30px rgba(30,36,39,.14)}
+  .p4 .tag b{display:flex;align-items:center;gap:8px;font-weight:600}
+  .p4 .tag b::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--menta)}
+  .p4 h3.sec{font:400 36px/1.15 'Young Serif',serif;margin:0 0 30px;max-width:24ch}
+  .p4 .treat{padding:72px 0;border-top:1px solid var(--linea)}
+  .p4 .list{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+  .p4 .item{padding:22px 0;border-top:1px solid var(--linea)}
+  .p4 .item h4{font-weight:600;font-size:18px;margin:0 0 6px}
+  .p4 .item p{margin:0;color:var(--gris);line-height:1.6}
+  .p4 .steps{padding:72px 0;border-top:1px solid var(--linea)}
+  .p4 .steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+  .p4 .steps li{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:24px;counter-increment:s}
+  .p4 .steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--menta-prof);color:var(--menta-prof);font:600 15px Onest,sans-serif;margin-bottom:18px}
+  .p4 .steps h4{font-weight:600;font-size:18px;margin:0 0 6px}
+  .p4 .steps p{margin:0;color:var(--gris);line-height:1.6}
+  .p4 .band{background:var(--ciruela);color:#fff;border-radius:16px;padding:44px 48px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:64px}
+  .p4 .band h3{font:400 30px/1.2 'Young Serif',serif;margin:0;max-width:22ch}
+  .p4 .band .btn{background:#fff;color:var(--ciruela)}
+  /* Muestra del panel interno */
+  .p4 .app{border-top:1px solid var(--linea);padding:64px 0 72px}
+  .p4 .app > p{color:var(--gris);margin:-16px 0 26px;max-width:60ch;line-height:1.6}
+  .p4 .shell{display:grid;grid-template-columns:210px 1fr;background:var(--blanco);border:1px solid var(--linea);border-radius:14px;overflow:hidden}
+  .p4 .side{border-right:1px solid var(--linea);padding:20px 14px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+  .p4 .side .logo{font-size:18px;margin:0 6px 18px}
+  .p4 .side a{padding:10px 12px;border-radius:8px;color:var(--gris)}
+  .p4 .side a.on{background:var(--menta-suave);color:var(--menta-prof);font-weight:600}
+  .p4 .board{padding:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;background:var(--papel)}
+  .p4 .board h4.hello{grid-column:1/-1;font:400 26px 'Young Serif',serif;margin:0 0 4px}
+  .p4 .kpi{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:18px}
+  .p4 .kpi span{font-size:13px;color:var(--gris)}
+  .p4 .kpi strong{display:block;font:600 34px/1.1 Onest,sans-serif;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+  .p4 .kpi.accent{background:var(--lila-suave);border-color:#E4D9F7}
+  .p4 .kpi.accent strong{color:var(--ciruela)}
+  .p4 .agenda{grid-column:1/-1;background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:6px 18px}
+  .p4 .row{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--linea);font-size:14px}
+  .p4 .row:first-child{border-top:0}
+  .p4 .row time{color:var(--gris);font-variant-numeric:tabular-nums}
+  .p4 .row small{display:block;color:var(--gris);font-size:13px;margin-top:2px}
+  .p4 .pill{font-size:12px;font-weight:600;border-radius:6px;padding:5px 9px;background:var(--menta-suave);color:var(--menta-prof)}
+  .p4 .pill.wait{background:#FBF1E3;color:#8A5A1E}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .spec-card{grid-template-columns:1fr}
+    .p1 .hero,.p2 .hero,.p3 .hero{grid-template-columns:1fr}
+    .p1 .navlinks,.p2 .navlinks,.p3 .navlinks{display:none}
+    .p1 .list,.p2 .steps ol,.p3 .cards{grid-template-columns:1fr}
+    .p1 .room{margin:0 0 0 20px}
+    .p1 .band{padding:32px}
+    .p2 .hero-text{padding:44px 0;border-right:0}
+    .p2 .scan{min-height:380px;margin:0 -20px}
+    .p3 .tooth-photo{margin:0 auto;max-width:380px}
+    .p3 .kids{grid-template-columns:1fr;padding:30px;text-align:left}
+    .p4 .hero{grid-template-columns:1fr;padding-top:36px}
+    .p4 .navlinks{display:none}
+    .p4 .list,.p4 .steps ol{grid-template-columns:1fr}
+    .p4 .room{margin:0 0 0 20px}
+    .p4 .band{padding:32px}
+    .p4 .shell{grid-template-columns:1fr}
+    .p4 .side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--linea);padding:12px}
+    .p4 .side .logo{display:none}
+    .p4 .side a{white-space:nowrap}
+    .p4 .board{grid-template-columns:1fr;padding:16px}
+  }
+  @media (max-width:520px){
+    .swatches{grid-template-columns:repeat(2,1fr)}
+    .spec dl{grid-template-columns:1fr;gap:2px}
+    .spec dd{margin-bottom:10px}
+    .p2 .facts,.p4 .facts{grid-template-columns:1fr}
+    .p4 nav .btn{padding:10px 16px;font-size:14px}
+    .p1 nav .btn,.p2 nav .btn,.p3 nav .btn{padding:10px 16px;font-size:14px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <clipPath id="tooth" clipPathUnits="objectBoundingBox">
+    <path d="M0.5,0.12 C0.38,0.02 0.08,0 0.05,0.28 C0.03,0.48 0.14,0.6 0.18,0.8 C0.21,0.96 0.31,1 0.35,0.86 C0.39,0.72 0.43,0.64 0.5,0.64 C0.57,0.64 0.61,0.72 0.65,0.86 C0.69,1 0.79,0.96 0.82,0.8 C0.86,0.6 0.97,0.48 0.95,0.28 C0.92,0 0.62,0.02 0.5,0.12 Z"/>
+  </clipPath>
+</svg>
+
+<header class="switcher">
+  <div class="switcher-in">
+    <h1>Dentino · elige una dirección visual</h1>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-t="p4">1 + 2. Madera clínica</button>
+      <button role="tab" aria-selected="false" data-t="p1">1. Madera y lila</button>
+      <button role="tab" aria-selected="false" data-t="p2">2. Clínica luminosa</button>
+      <button role="tab" aria-selected="false" data-t="p3">3. Sonrisa cercana</button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= COMBINACIÓN 1 + 2 ================= -->
+<section class="proposal on" id="p4">
+  <div class="p4">
+    <div class="wrap">
+      <nav>
+        <span class="logo"><img src="../public/images/diente-icono.png" alt="">Dental Dentino</span>
+        <span class="navlinks"><a>Tratamientos</a><a>Cómo funciona</a><a>La clínica</a><a>Contacto</a></span>
+        <a class="btn btn-main" href="#">Pedir cita</a>
+      </nav>
+      <div class="hero">
+        <div>
+          <h2 class="display">Un consultorio pensado para que te sientas en casa</h2>
+          <p class="lead">Revisamos cada pieza, te explicamos lo que vemos y acordamos contigo el plan antes de empezar. Sin prisas y sin sorpresas.</p>
+          <div class="cta"><a class="btn btn-main" href="#">Reservar mi cita</a><a class="btn btn-ghost" href="#">Ver tratamientos</a></div>
+          <div class="facts">
+            <div><strong>Odontograma digital</strong>Tu historia, pieza por pieza</div>
+            <div><strong>Presupuesto previo</strong>Sabes el costo antes de empezar</div>
+            <div><strong>Recordatorios</strong>Te avisamos de tu próxima cita</div>
+          </div>
+        </div>
+        <div class="room">
+          <img src="../public/images/clinica-4.jpg" alt="Consultorio de Dental Dentino con paneles de madera y luz cálida">
+          <div class="slats" aria-hidden="true"></div>
+          <div class="tag"><b>Box 01 disponible</b>Hoy · 4:30 p. m.</div>
+        </div>
+      </div>
+      <div class="treat">
+        <h3 class="sec">Lo que hacemos por tu sonrisa</h3>
+        <div class="list">
+          <div class="item"><h4>Limpieza y prevención</h4><p>Profilaxis, flúor y revisión completa cada seis meses.</p></div>
+          <div class="item"><h4>Ortodoncia</h4><p>Brackets y alineadores con controles mensuales.</p></div>
+          <div class="item"><h4>Blanqueamiento</h4><p>Tono más claro en una sesión, cuidando el esmalte.</p></div>
+          <div class="item"><h4>Endodoncia</h4><p>Tratamiento de conducto para salvar la pieza.</p></div>
+          <div class="item"><h4>Implantes</h4><p>Reponemos dientes perdidos con resultados naturales.</p></div>
+          <div class="item"><h4>Odontopediatría</h4><p>Primeras visitas tranquilas para los más pequeños.</p></div>
+        </div>
+      </div>
+      <div class="steps">
+        <h3 class="sec">Tu cita en tres pasos</h3>
+        <ol>
+          <li><h4>Elige el horario</h4><p>Escoge día y hora desde el formulario o por WhatsApp.</p></li>
+          <li><h4>Revisión y plan</h4><p>Evaluamos, registramos tu odontograma y te damos un presupuesto.</p></li>
+          <li><h4>Tratamiento y control</h4><p>Hacemos el tratamiento y te recordamos el siguiente control.</p></li>
+        </ol>
+      </div>
+      <div class="band">
+        <h3>¿Hace tiempo que no vas al dentista? Empecemos con una revisión.</h3>
+        <a class="btn" href="#">Pedir cita por WhatsApp</a>
+      </div>
+      <div class="app">
+        <h3 class="sec">Así se vería el panel interno</h3>
+        <p>El mismo sistema aplicado a la app de la clínica: serif solo para el saludo y los títulos, Onest para datos y tablas, menta para la navegación y las acciones, y ciruela para lo que requiere atención.</p>
+        <div class="shell">
+          <div class="side">
+            <span class="logo">Dentino</span>
+            <a class="on">Inicio</a><a>Agenda</a><a>Pacientes</a><a>Caja</a><a>Recursos</a>
+          </div>
+          <div class="board">
+            <h4 class="hello">Buenos días, doctora</h4>
+            <div class="kpi"><span>Citas de hoy</span><strong>12</strong></div>
+            <div class="kpi"><span>Pacientes nuevos este mes</span><strong>38</strong></div>
+            <div class="kpi accent"><span>Pagos pendientes</span><strong>S/ 1 240</strong></div>
+            <div class="agenda">
+              <div class="row"><time>09:00</time><div>María Torres<small>Limpieza · Box 01</small></div><span class="pill">Confirmada</span></div>
+              <div class="row"><time>10:30</time><div>Luis Paredes<small>Control de ortodoncia · Box 02</small></div><span class="pill wait">Por confirmar</span></div>
+              <div class="row"><time>12:00</time><div>Sofía Quispe<small>Primera visita · Box 01</small></div><span class="pill">Confirmada</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="spec"><div class="spec-card">
+    <div>
+      <h2>1 + 2. Madera clínica</h2>
+      <p>La calidez y elegancia de la clínica real (serif, madera, ciruela) sobre la base limpia y precisa de la 2 (blanco, menta, bordes finos, esquinas sobrias). El elemento memorable sigue siendo el panel de listones con su curva. Todo lo demás es tranquilo y ordenado, así que el estilo funciona tanto en la web pública como en la app.</p>
+      <dl>
+        <dt>Títulos</dt><dd>Young Serif, solo en titulares grandes</dd>
+        <dt>Texto e interfaz</dt><dd>Onest: botones, datos, tablas y formularios</dd>
+        <dt>Esquinas</dt><dd>10–12 px en botones y tarjetas; arco solo en la foto principal</dd>
+        <dt>Sombras</dt><dd>Bordes de 1 px en lugar de sombras; sombra cálida solo en la madera</dd>
+        <dt>Acción</dt><dd>Menta profunda (botones); ciruela para destacar y avisos</dd>
+        <dt>Sensación</dt><dd>Cálida pero profesional; de confianza</dd>
+      </dl>
+    </div>
+    <div class="swatches">
+      <div class="sw"><i style="background:#FAF9F7"></i><span><b>Papel</b><code>#FAF9F7</code></span></div>
+      <div class="sw"><i style="background:#00756A"></i><span><b>Menta profunda</b><code>#00756A</code></span></div>
+      <div class="sw"><i style="background:#00B3A0"></i><span><b>Menta Dentino</b><code>#00B3A0</code></span></div>
+      <div class="sw"><i style="background:#5B2A86"></i><span><b>Ciruela</b><code>#5B2A86</code></span></div>
+      <div class="sw"><i style="background:#B98A5B"></i><span><b>Roble</b><code>#B98A5B</code></span></div>
+      <div class="sw"><i style="background:#1E2427"></i><span><b>Grafito</b><code>#1E2427</code></span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= PROPUESTA 1 ================= -->
+<section class="proposal" id="p1">
+  <div class="p1">
+    <div class="wrap">
+      <nav>
+        <span class="logo"><img src="../public/images/diente-icono.png" alt="">Dental Dentino</span>
+        <span class="navlinks"><a>Tratamientos</a><a>La clínica</a><a>Contacto</a></span>
+        <a class="btn btn-main" href="#">Pedir cita</a>
+      </nav>
+      <div class="hero">
+        <div>
+          <h2 class="display">Un consultorio pensado para que te sientas en casa</h2>
+          <p class="lead">Madera, luz cálida y tiempo para explicarte cada paso. En Dental Dentino cuidamos tu sonrisa sin prisas y sin sorpresas.</p>
+          <div class="cta"><a class="btn btn-main" href="#">Reservar mi cita</a><a class="btn btn-ghost" href="#">Ver tratamientos</a></div>
+        </div>
+        <div class="room">
+          <img src="../public/images/clinica-4.jpg" alt="Consultorio de Dental Dentino con paneles de madera y luz cálida">
+          <div class="slats" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="treat">
+        <h3 class="sec">Lo que hacemos por tu sonrisa</h3>
+        <div class="list">
+          <div class="item"><h4>Limpieza y prevención</h4><p>Profilaxis, flúor y revisión completa cada seis meses.</p></div>
+          <div class="item"><h4>Ortodoncia</h4><p>Brackets y alineadores con controles mensuales.</p></div>
+          <div class="item"><h4>Blanqueamiento</h4><p>Tono más claro en una sesión, cuidando el esmalte.</p></div>
+          <div class="item"><h4>Endodoncia</h4><p>Tratamiento de conducto para salvar la pieza.</p></div>
+          <div class="item"><h4>Implantes</h4><p>Reponemos dientes perdidos con resultados naturales.</p></div>
+          <div class="item"><h4>Odontopediatría</h4><p>Primeras visitas tranquilas para los más pequeños.</p></div>
+        </div>
+      </div>
+      <div class="band">
+        <h3>¿Hace tiempo que no vas al dentista? Empecemos con una revisión.</h3>
+        <a class="btn" href="#">Pedir cita por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <div class="spec"><div class="spec-card">
+    <div>
+      <h2>1. Madera y lila</h2>
+      <p>Nace de tu propia clínica: los paneles de listones de madera, la luz LED cálida y los muebles lila. La sensación es de boutique cálida y premium, como un consultorio de autor. El elemento memorable es el panel de listones con el corte curvo de tu pared, junto a la foto real del consultorio.</p>
+      <dl>
+        <dt>Títulos</dt><dd>Young Serif: serif suave, elegante y cercana</dd>
+        <dt>Texto</dt><dd>Figtree</dd>
+        <dt>Esquinas</dt><dd>20 px en tarjetas; arco grande en las fotos; botones de píldora</dd>
+        <dt>Sombras</dt><dd>Cálidas y profundas, solo en el panel de madera</dd>
+        <dt>Sensación</dt><dd>Hogareña, tranquila, de alta gama</dd>
+      </dl>
+    </div>
+    <div class="swatches">
+      <div class="sw"><i style="background:#F8F6F4"></i><span><b>Lino</b><code>#F8F6F4</code></span></div>
+      <div class="sw"><i style="background:#B98A5B"></i><span><b>Roble</b><code>#B98A5B</code></span></div>
+      <div class="sw"><i style="background:#BBA2EA"></i><span><b>Lila mueble</b><code>#BBA2EA</code></span></div>
+      <div class="sw"><i style="background:#5B2A86"></i><span><b>Ciruela</b><code>#5B2A86</code></span></div>
+      <div class="sw"><i style="background:#16A58E"></i><span><b>Menta</b><code>#16A58E</code></span></div>
+      <div class="sw"><i style="background:#2A2433"></i><span><b>Tinta</b><code>#2A2433</code></span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= PROPUESTA 2 ================= -->
+<section class="proposal" id="p2">
+  <div class="p2">
+    <div class="wrap">
+      <nav>
+        <span class="logo"><img src="../public/images/diente-icono.png" alt="">Dental Dentino</span>
+        <span class="navlinks"><a>Tratamientos</a><a>Cómo funciona</a><a>Contacto</a></span>
+        <a class="btn btn-main" href="#">Pedir cita</a>
+      </nav>
+      <div class="hero">
+        <div class="hero-text">
+          <h2 class="display">Diagnóstico claro, tratamiento preciso</h2>
+          <p class="lead">Revisamos cada pieza, te mostramos lo que vemos y acordamos contigo el plan antes de empezar.</p>
+          <div class="cta"><a class="btn btn-main" href="#">Reservar revisión</a><a class="btn btn-ghost" href="#">Ver tratamientos</a></div>
+          <div class="facts">
+            <div><strong>Odontograma digital</strong>Tu historia, pieza por pieza</div>
+            <div><strong>Presupuesto previo</strong>Sabes el costo antes de empezar</div>
+            <div><strong>Recordatorios</strong>Te avisamos de tu próxima cita</div>
+          </div>
+        </div>
+        <div class="scan">
+          <img src="../public/images/clinica-1.jpg" alt="Box de atención con sillón dental">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+            <path d="M50 12C38 2 8 0 5 28c-2 20 9 32 13 52 3 16 13 20 17 6 4-14 8-22 15-22s11 8 15 22c4 14 14 10 17-6 4-20 15-32 13-52C92 0 62 2 50 12Z"/>
+            <path d="M28 30c6-6 16-6 22 0M50 30c6-6 16-6 22 0" stroke-dasharray="2 3"/>
+            <circle cx="72" cy="22" r="3"/><path d="M75 22h18" />
+          </svg>
+          <div class="tag"><b>Box 01 disponible</b>Hoy · 4:30 p. m.</div>
+        </div>
+      </div>
+      <div class="steps">
+        <h3 class="sec">Tu cita en tres pasos</h3>
+        <ol>
+          <li><h4>Elige el horario</h4><p>Escoge día y hora desde el formulario o por WhatsApp.</p></li>
+          <li><h4>Revisión y plan</h4><p>Evaluamos, registramos tu odontograma y te damos un presupuesto.</p></li>
+          <li><h4>Tratamiento y control</h4><p>Hacemos el tratamiento y te recordamos el siguiente control.</p></li>
+        </ol>
+      </div>
+      <div class="chips">
+        <span>Limpieza</span><span>Ortodoncia</span><span class="hl">Blanqueamiento</span><span>Endodoncia</span><span>Implantes</span><span>Odontopediatría</span><span>Extracciones</span>
+      </div>
+    </div>
+  </div>
+  <div class="spec"><div class="spec-card">
+    <div>
+      <h2>2. Clínica luminosa</h2>
+      <p>Moderna, precisa y confiable, como una clínica de alta tecnología. Blanco con líneas finas, la menta del logo como color principal y el lila solo para destacar algo. El elemento memorable es el trazo técnico del diente sobre la foto del box, como un escáner. Además, la misma estética encaja con el panel interno (odontograma, citas).</p>
+      <dl>
+        <dt>Títulos</dt><dd>Schibsted Grotesk: grotesca firme y compacta</dd>
+        <dt>Texto</dt><dd>Onest</dd>
+        <dt>Esquinas</dt><dd>8–12 px, sobrias</dd>
+        <dt>Sombras</dt><dd>Casi ninguna: la estructura la dan bordes de 1 px</dd>
+        <dt>Sensación</dt><dd>Precisa, ordenada, profesional</dd>
+      </dl>
+    </div>
+    <div class="swatches">
+      <div class="sw"><i style="background:#FFFFFF"></i><span><b>Blanco</b><code>#FFFFFF</code></span></div>
+      <div class="sw"><i style="background:#EEF4F5"></i><span><b>Niebla</b><code>#EEF4F5</code></span></div>
+      <div class="sw"><i style="background:#00B3A0"></i><span><b>Menta Dentino</b><code>#00B3A0</code></span></div>
+      <div class="sw"><i style="background:#00756A"></i><span><b>Menta profunda</b><code>#00756A</code></span></div>
+      <div class="sw"><i style="background:#8A5CF0"></i><span><b>Lila señal</b><code>#8A5CF0</code></span></div>
+      <div class="sw"><i style="background:#16232A"></i><span><b>Grafito</b><code>#16232A</code></span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= PROPUESTA 3 ================= -->
+<section class="proposal" id="p3">
+  <div class="p3">
+    <div class="wrap">
+      <nav>
+        <span class="logo"><img src="../public/images/diente-icono.png" alt=""><span>Dental</span> <em>Dentino</em></span>
+        <span class="navlinks"><a>Tratamientos</a><a>Para niños</a><a>Contacto</a></span>
+        <a class="btn btn-main" href="#">Pedir cita</a>
+      </nav>
+      <div class="hero">
+        <div>
+          <h2 class="display">Sonrisas sanas para toda la familia</h2>
+          <p class="lead">Atendemos a grandes y pequeños con paciencia y cariño, para que ir al dentista deje de dar miedo.</p>
+          <div class="cta"><a class="btn btn-main" href="#">Reservar cita</a><a class="btn btn-ghost" href="#">Conocer la clínica</a></div>
+        </div>
+        <div class="tooth-photo">
+          <div class="bg" aria-hidden="true"></div>
+          <img src="../public/images/clinica-1.jpg" alt="Consultorio de Dental Dentino con muebles lila">
+          <svg class="heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.8 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.9 3.8 4.3 7.3C19.5 16.4 12 21 12 21Z"/></svg>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="c"><h4>Limpieza y prevención</h4><p>Revisiones cada seis meses para que no haya sorpresas.</p></div>
+        <div class="c mint"><h4>Ortodoncia</h4><p>Brackets y alineadores para niños, jóvenes y adultos.</p></div>
+        <div class="c sun"><h4>Blanqueamiento</h4><p>Una sonrisa más luminosa, cuidando tu esmalte.</p></div>
+      </div>
+      <div class="kids">
+        <img src="../public/images/clinica-3.jpg" alt="">
+        <div><h3>Primera visita de los peques</h3><p>Una cita corta para conocer el consultorio, el sillón y a su dentista. Sin tratamientos, sin miedo.</p></div>
+        <a class="btn" href="#">Agendar su primera visita</a>
+      </div>
+    </div>
+  </div>
+  <div class="spec"><div class="spec-card">
+    <div>
+      <h2>3. Sonrisa cercana</h2>
+      <p>Amable y familiar, fiel al logo: tipografía redondeada como la de "Dental Dentino", el lila como fondo y la menta como acento. Ideal si atienden a muchas familias y niños. El elemento memorable es la foto recortada con la silueta del diente y el corazón de tu logo.</p>
+      <dl>
+        <dt>Títulos</dt><dd>Baloo 2: redondeada, como el logotipo</dd>
+        <dt>Texto</dt><dd>Nunito Sans</dd>
+        <dt>Esquinas</dt><dd>28–36 px, muy suaves; botones de píldora con relieve</dd>
+        <dt>Sombras</dt><dd>Planas y sólidas debajo de los botones (efecto “presionable”)</dd>
+        <dt>Sensación</dt><dd>Alegre, cálida, de confianza</dd>
+      </dl>
+    </div>
+    <div class="swatches">
+      <div class="sw"><i style="background:#F5F0FF"></i><span><b>Nube lila</b><code>#F5F0FF</code></span></div>
+      <div class="sw"><i style="background:#C9A5EC"></i><span><b>Lila logo</b><code>#C9A5EC</code></span></div>
+      <div class="sw"><i style="background:#5E3496"></i><span><b>Uva</b><code>#5E3496</code></span></div>
+      <div class="sw"><i style="background:#00A894"></i><span><b>Menta</b><code>#00A894</code></span></div>
+      <div class="sw"><i style="background:#FFD27A"></i><span><b>Sol</b><code>#FFD27A</code></span></div>
+      <div class="sw"><i style="background:#2E2440"></i><span><b>Tinta</b><code>#2E2440</code></span></div>
+    </div>
+  </div></div>
+</section>
+
+<script>
+  const tabs=[...document.querySelectorAll('.tabs button')];
+  function show(id){
+    tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));
+    document.querySelectorAll('.proposal').forEach(s=>s.classList.toggle('on',s.id===id));
+    try{history.replaceState(null,'','#'+id)}catch(e){}
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.t)));
+  if(/^#p[1234]$/.test(location.hash))show(location.hash.slice(1));
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@ import {ClipboardList,X,AlertCircle} from 'lucide-react';
 import {api} from './api';
 import {Tile,TileGrid} from './Tiles';
 import {label,type Row} from '../shared/modules';
-export type User={nombre:string;apellido:string;rol:string;correo:string};
+export type User={id_usuario?:number;cambio_clave_pendiente?:number;nombre:string;apellido:string;rol:string;correo:string};
 export type Option={id:number;label:string};
 export const money=(n:unknown)=>new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN'}).format(Number(n||0));
 export const date=(n:unknown)=>n?String(n).slice(0,10).split('-').reverse().join('/'): '—';
@@ -23,7 +23,7 @@ export function ConfirmDialog({title,message,confirmText,danger,onClose,onConfir
  const [busy,setBusy]=useState(false),[error,setError]=useState('');
  return <Modal title={title} onClose={onClose}><p>{message}</p><Notice error={error}/><div className="form-footer"><button type="button" className="button" onClick={onClose} disabled={busy}>Volver</button><button type="button" className={'button '+(danger?'danger':'primary')} disabled={busy} onClick={async()=>{setBusy(true);setError('');try{await onConfirm();}catch(e){setError((e as Error).message);setBusy(false);}}}>{busy?'Procesando…':confirmText}</button></div></Modal>;
 }
-export function SimpleTable({rows,omit=[],renderActions}:{rows:Row[];omit?:string[];renderActions?:(row:Row)=>React.ReactNode}){if(!rows.length)return <Empty/>;const [first,...rest]=Object.keys(rows[0]).filter(k=>!omit.includes(k));if(!first)return <Empty/>;return <TileGrid>{rows.map((r,i)=><Tile key={i} title={label(first)+' '+String(r[first]??'—')} fields={rest.map(k=>[label(k),String(r[k]??'—')] as [string,string])} actions={renderActions?renderActions(r):undefined}/>)}</TileGrid>;}
+export function SimpleTable({rows,omit=[],renderActions}:{rows:Row[];omit?:string[];renderActions?:(row:Row)=>React.ReactNode}){if(!rows.length)return <Empty/>;const keys=Object.keys(rows[0]).filter(k=>!omit.includes(k));if(!keys.length)return <Empty/>;const preferred=['responsable','paciente','descripcion','categoria','servicio_pago','tipo_movimiento','fecha_apertura','fecha_movimiento','fecha','motivo'];const first=preferred.find(k=>keys.includes(k)&&rows[0][k]!==null&&rows[0][k]!==undefined&&String(rows[0][k]).trim()!=='')||keys[0];const rest=keys.filter(k=>k!==first);const fmt=(k:any,v:any)=>/fecha/i.test(String(k))?String(v??'-').slice(0,10):String(v??'-');return <TileGrid>{rows.map((r,i)=><Tile key={i} title={fmt(first,r[first])} fields={rest.map(k=>[label(k),fmt(k,r[k])] as [string,string])} actions={renderActions?renderActions(r):undefined}/>)}</TileGrid>;}
 export function SignDialog({path,onClose,onSigned}:{path:string;onClose:()=>void;onSigned:()=>void}){
  const [pin,setPin]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState('');
  async function submit(e:FormEvent){e.preventDefault();if(busy)return;setBusy(true);setError('');try{await api(path,'POST',{pin});onSigned();}catch(err){setError((err as Error).message);}finally{setBusy(false);}}

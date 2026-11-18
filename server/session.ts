@@ -1,7 +1,7 @@
 import session from 'express-session';
 import {createHash} from 'node:crypto';
 import {exec,rows} from './db.js';
-export type User={id_usuario:number;nombre:string;apellido:string;rol:string;correo:string};
+export type User={cambio_clave_pendiente?:number;id_usuario:number;nombre:string;apellido:string;rol:string;correo:string};
 declare module 'express-session' {interface SessionData{user?:User;csrf?:string;pwd?:string}}
 /** Huella corta del hash de la contraseña: si la contraseña cambia, las sesiones abiertas con la anterior dejan de valer. */
 export const passwordStamp=(hash:unknown)=>createHash('sha256').update(String(hash||'')).digest('hex').slice(0,16);

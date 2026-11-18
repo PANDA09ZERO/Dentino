@@ -1,5 +1,6 @@
 import {useState} from 'react';
-import {Activity,ArrowRight,ArrowUpRight,CalendarDays,FileText,Package,Plus,Smile,Users,Wallet,Stethoscope,Check} from 'lucide-react';
+import {BrandMark} from './BrandMark';
+import {Activity,ArrowRight,ArrowUpRight,CalendarDays,FileText,Package,Plus,Users,Wallet,Stethoscope,Check} from 'lucide-react';
 import {api} from './api';
 import {type Row} from '../shared/modules';
 import {type User,money,date,go,useLoad,Notice,Empty,Loading,Header,Badge} from './ui';
@@ -22,7 +23,7 @@ export function Dashboard({user}:{user:User}){
  return <><Header heading={'Hola, '+user.nombre+'.'} description="Una mirada a tu clínica. Todo lo importante, a mano.">{!readOnly&&<button className="button primary" onClick={()=>go('citas?crear=1')}><Plus size={17}/>Nueva cita</button>}</Header>
   <Notice error={error||actionError}/>{notice&&<div className="success" role="status"><Check size={16}/>{notice}</div>}
   {loading&&!data?<Loading/>:data&&<div className="bento-grid">
-   <section className="card welcome"><div><span className="eyebrow">CUIDAR, ORGANIZAR, SONREÍR</span><h2>Un buen día empieza<br/>con una buena atención.</h2><p>{data.today.length?<>Hoy tienes {data.today.length} cita{data.today.length===1?'':'s'}{open.length?<>, {open.length} por atender</>:<>, todas atendidas</>}.</>:<>Consulta la agenda y acompaña cada paso<br/>del tratamiento de tus pacientes.</>}</p><button className="button dark" onClick={()=>go('agenda')}>Ver agenda<ArrowUpRight size={17}/></button></div><div className="welcome-art" aria-hidden="true"><Smile size={145} strokeWidth={1}/><span className="spark spark-one">✦</span><span className="spark spark-two">✦</span></div></section>
+   <section className="card welcome"><div><span className="eyebrow">CUIDAR, ORGANIZAR, SONREÍR</span><h2>Un buen día empieza<br/>con una buena atención.</h2><p>{data.today.length?<>Hoy tienes {data.today.length} cita{data.today.length===1?'':'s'}{open.length?<>, {open.length} por atender</>:<>, todas atendidas</>}.</>:<>Consulta la agenda y acompaña cada paso<br/>del tratamiento de tus pacientes.</>}</p><button className="button dark" onClick={()=>go('agenda')}>Ver agenda<ArrowUpRight size={17}/></button></div><div className="welcome-art" aria-hidden="true"><BrandMark size={145} large/><span className="spark spark-one">✦</span><span className="spark spark-two">✦</span></div></section>
    <section className="card stat"><span className="stat-icon"><Users/></span><span>{doctor?'Pacientes de la clínica':'Pacientes registrados'}</span><strong>{data.patients}</strong><a href="#pacientes">Ver pacientes <ArrowUpRight size={16}/></a></section>
    <section className="card stat lavender"><span className="stat-icon"><CalendarDays/></span><span>{doctor?'Tus citas de hoy':'Citas para hoy'}</span><strong>{data.today.length}</strong><a href="#agenda">Abrir agenda <ArrowUpRight size={16}/></a></section>
    <section className="card appointments"><div className="section-head"><div><span className="eyebrow">ATENCIÓN DEL DÍA</span><h2>{doctor?'Tu agenda de hoy':'Agenda de hoy'}</h2>{data.today.length>0&&<small className="muted">{open.length?open.length+' por atender':'Todas atendidas'}</small>}</div><a href="#agenda">Ver agenda <ArrowUpRight size={16}/></a></div>

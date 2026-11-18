@@ -1,0 +1,90 @@
+/* =============================================================
+   Dentino · Sistema de diseño "Madera clínica" (propuesta 1 + 2)
+   Fuente única de colores, tipografías, radios, sombras y
+   transiciones. El resto de CSS solo usa estas variables.
+   ============================================================= */
+@import "https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Young+Serif&display=swap";
+
+:root{
+  /* ---- Color: superficies ---- */
+  --c-bg:#FAF9F7;            /* papel: fondo general */
+  --c-bg-muted:#F3F1ED;      /* hover y zonas hundidas */
+  --c-surface:#FFFFFF;       /* tarjetas, modales, campos */
+  --c-line:#E4E1DC;          /* bordes de 1 px */
+  --c-line-strong:#CFCAC3;
+
+  /* ---- Color: texto ---- */
+  --c-text:#1E2427;          /* grafito */
+  --c-text-muted:#5F676B;
+  --c-text-subtle:#737B7F;
+
+  /* ---- Color: marca y acción ---- */
+  --c-brand:#00B3A0;         /* menta Dentino (decorativo, logo) */
+  --c-action:#00756A;        /* menta profunda: botones, enlaces, activo */
+  --c-action-hover:#005E55;
+  --c-action-soft:#E3F4F1;   /* fondos suaves de menta */
+  --c-on-action:#FFFFFF;     /* texto sobre botones de color */
+
+  /* ---- Color: acento ---- */
+  --c-plum:#5B2A86;          /* ciruela: destacar y avisos */
+  --c-plum-hover:#4A1F70;
+  --c-plum-light:#8A63C0;
+  --c-plum-soft:#F3EEFC;
+  --c-plum-line:#E4D9F7;
+  --c-wood:#B98A5B;          /* roble */
+  --c-wood-dark:#A87A4D;
+  --c-focus:#5B2A86;
+
+  /* ---- Color: estados ---- */
+  --c-warn:#8A5A1E;          /* pendiente, por confirmar */
+  --c-warn-soft:#FBF1E3;
+  --c-danger:#9C3D30;        /* error, patología, eliminar */
+  --c-danger-soft:#FBECE8;
+
+  /* ---- Tipografía ---- */
+  --font-display:'Young Serif',Georgia,serif;  /* solo titulares grandes */
+  --font-ui:Onest,system-ui,sans-serif;        /* todo lo demás */
+  --font-mono:'Courier New',monospace;
+  --text-xs:11px;--text-sm:13px;--text-md:15px;--text-lg:18px;
+  --text-xl:24px;--text-2xl:32px;--text-3xl:44px;--text-4xl:clamp(40px,5.2vw,66px);
+
+  /* ---- Espaciado (escala de 4) ---- */
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+  --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
+
+  /* ---- Radios ---- */
+  --radius-sm:8px;           /* campos, chips */
+  --radius-md:10px;          /* botones */
+  --radius-lg:14px;          /* tarjetas */
+  --radius-xl:18px;          /* bloques grandes */
+  --radius-arch:200px;       /* arco de la foto principal */
+  --radius-pill:999px;       /* solo etiquetas y avatares */
+
+  /* ---- Sombras: casi nada, la estructura la dan los bordes ---- */
+  --shadow-none:none;
+  --shadow-pop:0 10px 30px rgb(30 36 39 / 14%);   /* menús, etiquetas flotantes */
+  --shadow-modal:0 20px 80px rgb(30 36 39 / 22%);
+  --shadow-wood:0 24px 50px rgb(90 60 30 / 22%);  /* solo el panel de madera */
+
+  /* ---- Movimiento ---- */
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --dur-fast:.15s;--dur-med:.25s;
+
+  color-scheme:light;
+}
+
+/* Modo oscuro: se activa con <html data-theme="dark">. */
+:root[data-theme="dark"]{
+  --c-bg:#151A1C;--c-bg-muted:#1C2226;--c-surface:#1F2629;--c-line:#2F383C;--c-line-strong:#3E494E;
+  --c-text:#ECEFEF;--c-text-muted:#A9B2B5;--c-text-subtle:#8E989C;
+  --c-brand:#1FC9B4;--c-action:#2BB8A5;--c-action-hover:#4BCFBC;--c-action-soft:#17332F;--c-on-action:#0D1A18;
+  --c-plum:#B795E6;--c-plum-hover:#CBB0F0;--c-plum-light:#B795E6;--c-plum-soft:#2A2236;--c-plum-line:#3D3150;
+  --c-focus:#B795E6;
+  --c-warn:#E7B877;--c-warn-soft:#33281A;--c-danger:#EE9A8C;--c-danger-soft:#3A221E;
+  --shadow-pop:0 10px 30px rgb(0 0 0 / 40%);--shadow-modal:0 20px 80px rgb(0 0 0 / 55%);
+  color-scheme:dark;
+}
+
+body{background:var(--c-bg);color:var(--c-text);font-family:var(--font-ui)}
+/* Las reglas de titulares en serif están al final de style.css y public.css
+   (deben cargarse después de las reglas base para ganar en la cascada). */

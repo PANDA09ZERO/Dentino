@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import {CalendarDays,FileText,LayoutDashboard,Package,Search,Settings,Users,Wallet} from 'lucide-react';
+import {CalendarDays,FileText,LayoutDashboard,Package,Search,Settings,User as UserIcon,Users,Wallet} from 'lucide-react';
 import {api} from './api';
 import {label,type Module,type Row} from '../shared/modules';
 import {Agenda} from './Agenda';
@@ -14,7 +14,8 @@ export function sectionsFor(user:User,modules:Module[]):Section[]{
  const list:Section[]=[
   {key:'inicio',text:'Inicio',icon:LayoutDashboard,tabs:[['dashboard','Vista general']]},
   {key:'agenda',text:'Agenda',icon:CalendarDays,tabs:tabs([['agenda','Calendario',true],['citas','Listado de citas']])},
-  {key:'pacientes',text:user.rol.startsWith('Doctor')?'Mis pacientes':'Pacientes',icon:Users,tabs:[['pacientes','Pacientes']]}
+  {key:'pacientes',text:user.rol.startsWith('Doctor')?'Mis pacientes':'Pacientes',icon:Users,tabs:[['pacientes','Pacientes']]},
+  {key:'perfil',text:'Mi perfil',icon:UserIcon,tabs:[['perfil','Mi perfil']]}
  ];
  // Caja: Administrador y Recepcionista (que también cobra y emite comprobantes).
  if(admin||user.rol==='Recepcionista')list.push({key:'caja',text:'Caja y comprobantes',icon:Wallet,tabs:tabs([['caja','Caja',true],['comprobantes','Comprobantes']])});

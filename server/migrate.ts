@@ -6,6 +6,11 @@ import {migrateSecurity} from './security-migration.js';
 import {migrateIndexes} from './index-migration.js';
 export async function migrate(){
  async function add(table:string,column:string,definition:string){if(!(await rows('SELECT 1 FROM information_schema.columns WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=? AND COLUMN_NAME=?',[table,column])).length)await exec(`ALTER TABLE \`${table}\` ADD COLUMN \`${column}\` ${definition}`);}
+ await add('usuarios','cambio_clave_pendiente','TINYINT(1) NOT NULL DEFAULT 0');
+ await add('usuarios','fecha_nacimiento','DATE NULL');
+ await add('usuarios','sexo',"ENUM('M','F','Otro') NULL");
+ await add('usuarios','direccion','TEXT NULL');
+ await add('usuarios','especialidad','VARCHAR(100) NULL');
  await add('categorias_pacientes','descuento_tipo',"ENUM('Porcentaje','Importe fijo') NOT NULL DEFAULT 'Porcentaje'");
  await exec('CREATE TABLE IF NOT EXISTS dentino_migrations (version VARCHAR(80) PRIMARY KEY, applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
  if((await rows('SELECT 1 FROM dentino_migrations WHERE version=?',['20261010_typescript'])).length){await migratePayments();await migrateServices();await migrateSecurity();await migrateIndexes();return;}

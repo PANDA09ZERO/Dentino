@@ -23,7 +23,7 @@ export function ContactForm({interests=[],tel='',wa=''}:{interests?:string[];tel
   {error&&<div className="notice" role="alert"><AlertCircle size={16}/>{error}</div>}
   <div className="form-grid">
    <label className="full">Nombre y apellido<input value={form.nombre} onChange={e=>set('nombre',e.target.value)} maxLength={100} autoComplete="name" required/></label>
-   <label>Teléfono<input type="tel" value={form.telefono} onChange={e=>set('telefono',e.target.value)} maxLength={30} inputMode="tel" autoComplete="tel"/></label>
+   <label>Teléfono<input type="tel" value={form.telefono} onChange={e=>set('telefono',e.target.value.replace(/\D/g,''))} maxLength={15} inputMode="numeric" autoComplete="tel"/></label>
    <label>Correo electrónico<input type="email" value={form.correo} onChange={e=>set('correo',e.target.value)} maxLength={100} autoComplete="email"/></label>
    {interests.length>0&&<label>Servicio de interés<select value={form.interes} onChange={e=>set('interes',e.target.value)}><option value="">Elige una opción</option>{interests.map(x=><option key={x}>{x}</option>)}<option>Otro / no estoy seguro</option></select></label>}
    <label>Turno preferido<select value={form.turno} onChange={e=>set('turno',e.target.value)}><option value="">Sin preferencia</option>{shifts.map(x=><option key={x}>{x}</option>)}</select></label>
