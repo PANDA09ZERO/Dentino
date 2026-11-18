@@ -28,7 +28,7 @@ export function UserDetail({id}:{id:string}) {
   const initials=user?[user.nombre,user.apellido].map(v=>String(v||'').slice(0,1)).join(''):'';
   return <>
     <header className="page-header">
-      <div><span className="eyebrow">DENTINO / EQUIPO</span><h1>Detalle de usuario</h1><p>Información personal y funciones dentro de la clínica.</p></div>
+      <div><span className="eyebrow">Equipo</span><h1>Detalle de usuario</h1><p>Información personal y funciones dentro de la clínica.</p></div>
       <div className="header-actions">
         <a className="button" href="#usuarios"><ArrowLeft size={16}/>Volver a usuarios</a>
         {user&&<><a className="button primary" href={'#usuarios?editar='+user.id_usuario}><Pencil size={16}/>Editar usuario</a><button className="button" onClick={()=>window.print()}><Printer size={16}/>Imprimir / PDF</button></>}
@@ -38,14 +38,14 @@ export function UserDetail({id}:{id:string}) {
     {loading?<div className="loading" role="status">Cargando ficha del usuario…</div>:user&&<div className="user-detail-grid">
       <section className="card user-profile-card" aria-label="Resumen del usuario">
         <div className="avatar user-detail-avatar">{initials}</div>
-        <span className="eyebrow">USUARIO #{user.id_usuario}</span>
+        <span className="eyebrow">Usuario #{user.id_usuario}</span>
         <h2>{fullName}</h2>
         <p>{user.rol}</p>
         <span className={'badge '+(user.estado==='Activo'?'good':'bad')}>{user.estado}</span>
         <dl className="user-profile-facts"><div><dt>DNI</dt><dd>{user.dni||'No registrado'}</dd></div><div><dt>Especialidad</dt><dd>{specialty||(user.id_especialidad?'Consultando especialidad…':'Sin especialidad asignada')}</dd></div></dl>
       </section>
       <section className="card" aria-labelledby="user-contact-heading">
-        <span className="eyebrow">DATOS PERSONALES</span><h2 id="user-contact-heading">Información de contacto</h2>
+        <span className="eyebrow">Datos personales</span><h2 id="user-contact-heading">Información de contacto</h2>
         <dl className="user-detail-facts">
           <div><dt><Mail size={17}/>Correo electrónico</dt><dd>{user.correo?<a href={'mailto:'+user.correo}>{user.correo}</a>:'No registrado'}</dd></div>
           <div><dt><Phone size={17}/>Teléfono</dt><dd>{user.telefono?<a href={'tel:'+String(user.telefono).replace(/[^+\d]/g,'')}>{user.telefono}</a>:'No registrado'}</dd></div>
@@ -53,7 +53,7 @@ export function UserDetail({id}:{id:string}) {
         </dl>
       </section>
       <section className="card" aria-labelledby="user-work-heading">
-        <span className="eyebrow">ORGANIZACIÓN DEL EQUIPO</span><h2 id="user-work-heading">Datos laborales</h2>
+        <span className="eyebrow">Organización del equipo</span><h2 id="user-work-heading">Datos laborales</h2>
         <dl className="user-detail-facts">
           <div><dt><ShieldCheck size={17}/>Rol</dt><dd>{user.rol}</dd></div>
           <div><dt><Stethoscope size={17}/>Especialidad</dt><dd>{specialty||(user.id_especialidad?'No disponible':'Sin especialidad asignada')}</dd></div>

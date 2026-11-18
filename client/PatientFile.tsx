@@ -55,7 +55,7 @@ export function History({id,tab,flow=false,modules,canPay,canEdit,canSchedule,us
  const exams:Row[]=diagnoses.flatMap(d=>d.examenes.map((x:Row)=>({...x,diagnostico:d})));
  const count:Record<string,number>={antecedentes:data.antecedentes.length,diagnosticos:diagnoses.length,planes:plans.length,evoluciones:data.evoluciones.length,examenes:exams.length};
  return <>
-  <Header eyebrow="FICHA CLÍNICA" heading={title(p)} description={['DNI '+(p.dni||'—'),p.telefono,p.edad?p.edad+' años':''].filter(Boolean).join(' · ')}>
+  <Header eyebrow="Ficha clínica" heading={title(p)} description={['DNI '+(p.dni||'—'),p.telefono,p.edad?p.edad+' años':''].filter(Boolean).join(' · ')}>
    {canSchedule&&<a className="button" href={clinicalLink('citas',id,{crear:'1',id_paciente:id},'citas')}><CalendarDays size={16}/>Nueva cita</a>}
    <button className="button" onClick={()=>window.print()}><Printer size={16}/>Imprimir historia</button>
   </Header>
@@ -83,7 +83,7 @@ export function History({id,tab,flow=false,modules,canPay,canEdit,canSchedule,us
 
   <div className={panel('diagnosticos')}>
    <section className="card"><div className="section-head"><h2 id="clinical-odontogramas">Odontograma y diagnósticos</h2>{canEdit&&<a className="button primary" href={clinicalLink('diagnosticos',id,{crear:'1',id_paciente:id},'diagnosticos')}><Plus size={16}/>Nuevo diagnóstico</a>}</div>{!diagnoses.length&&<Empty>No hay diagnósticos registrados para este paciente.</Empty>}</section>
-   {diagnoses.map((d:Row)=><section className="card" key={d.id_diagnostico}><div className="section-head"><div><span className="eyebrow">DIAGNÓSTICO · {date(d.fecha_diagnostico)} · {d.doctor}</span><h2>{d.observaciones_generales}</h2></div>{d.firmado?<span className="badge good" title={'Firmado el '+d.fecha_firma}>Firmado · {d.firmante}</span>:null}</div>
+   {diagnoses.map((d:Row)=><section className="card" key={d.id_diagnostico}><div className="section-head"><div><span className="eyebrow">Diagnóstico · {date(d.fecha_diagnostico)} · {d.doctor}</span><h2>{d.observaciones_generales}</h2></div>{d.firmado?<span className="badge good" title={'Firmado el '+d.fecha_firma}>Firmado · {d.firmante}</span>:null}</div>
     <div className="header-actions">{canEdit&&!d.firmado&&<a className="button" href={clinicalLink('diagnosticos',id,{editar:String(d.id_diagnostico)},'diagnosticos')}>Editar</a>}{canEdit&&<button type="button" className="button" onClick={()=>setUpdating(d)}>Nueva versión del odontograma</button>}{d.puede_firmar?<button type="button" className="button" onClick={()=>setSigningDiagnosis(d)}>Firmar</button>:null}</div>
     <OdontogramVersions diagnosis={d}/></section>)}
   </div>

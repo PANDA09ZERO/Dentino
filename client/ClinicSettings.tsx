@@ -9,7 +9,7 @@ export function ClinicSettings(){
  useEffect(()=>{let active=true;api<Record<string,any>>('/correo/estado').then(d=>{if(active)setMail(d);}).catch(()=>{});return()=>{active=false;};},[]);
  async function save(e:FormEvent){e.preventDefault();if(busy)return;setBusy(true);setError('');setSaved(false);try{setValues(await api<Record<string,string>>('/configuracion','PUT',values));setSaved(true);}catch(err){setError((err as Error).message);}finally{setBusy(false);}}
  return <>
-  <header className="page-header"><div><span className="eyebrow">ADMINISTRACIÓN</span><h1>Configuración de la clínica</h1><p>Estos datos se usan en los comprobantes simulados y en la página pública. No se inventa ningún dato: lo que dejes vacío aparece como «Por configurar».</p></div></header>
+  <header className="page-header"><div><span className="eyebrow">Administración</span><h1>Configuración de la clínica</h1><p>Estos datos se usan en los comprobantes simulados y en la página pública. No se inventa ningún dato: lo que dejes vacío aparece como «Por configurar».</p></div></header>
   {mail&&<div className="card"><strong>Correo saliente:</strong> {mail.configurado?'configurado':'no configurado (define SMTP_HOST, SMTP_PORT, SMTP_FROM y las credenciales en el archivo .env y reinicia la API)'}{mail.configurado&&<> · Enviados: {mail.enviados} · Pendientes: {mail.pendientes} · Fallidos: {mail.fallidos}</>}</div>}
   {error&&<div className="notice" role="alert"><AlertCircle size={16}/>{error}</div>}
   {saved&&<div className="success" role="status"><Check size={16}/>Configuración guardada.</div>}

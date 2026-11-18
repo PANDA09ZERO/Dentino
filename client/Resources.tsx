@@ -39,5 +39,5 @@ export function CategoryManager({modules,selected}:{modules:Module[];selected:st
  const categories=modules.filter(m=>m.key.startsWith('categorias-'));
  const category=categories.find(m=>m.key===selected)||categories[0];
  if(!category)return <Empty>No tienes acceso a la administración de categorías.</Empty>;
- return <><section className="card"><div className="section-head"><div><span className="eyebrow">CONFIGURACIÓN</span><h2>Categorías</h2><p>Elige qué categorías quieres consultar o administrar.</p></div></div><label>Tipo de categorías<select value={category.key} onChange={e=>go('categorias?tipo='+e.target.value.replace('categorias-',''))}>{categories.map(m=><option key={m.key} value={m.key}>{m.title}</option>)}</select></label></section><Resources key={category.key} mod={category} filter={new URLSearchParams()}/></>;
+ return <><section className="card"><div className="section-head"><div><span className="eyebrow">Configuración</span><h2>Categorías</h2><p>Elige qué categorías quieres consultar o administrar.</p></div></div><label>Tipo de categorías<select value={category.key} onChange={e=>go('categorias?tipo='+e.target.value.replace('categorias-',''))}>{categories.map(m=><option key={m.key} value={m.key}>{m.title}</option>)}</select></label></section><Resources key={category.key} mod={category} filter={new URLSearchParams()}/></>;
 }

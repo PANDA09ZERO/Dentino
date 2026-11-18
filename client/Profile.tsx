@@ -11,14 +11,14 @@ export function Profile({user,onUpdate}:{user:User;onUpdate:(user:User)=>void}){
  const sexoLabel=info.sexo==='M'?'Masculino':info.sexo==='F'?'Femenino':info.sexo==='Otro'?'Otro':'';
  return <>
   <header className="page-header">
-   <div><span className="eyebrow">DENTINO / MI PERFIL</span><h1>Mi perfil</h1><p>Administra tu información personal y credenciales de acceso.</p></div>
+   <div><span className="eyebrow">Mi perfil</span><h1>Mi perfil</h1><p>Administra tu información personal y credenciales de acceso.</p></div>
   </header>
   <Notice error={error}/>
   {success&&<div className="success" role="status">{success}</div>}
   <div className="user-detail-grid">
    <section className="card user-profile-card" aria-label="Resumen del perfil">
     <div className="avatar user-detail-avatar">{initials}</div>
-    <span className="eyebrow">USUARIO #{user.id_usuario}</span>
+    <span className="eyebrow">Usuario #{user.id_usuario}</span>
     <h2>{user.nombre} {user.apellido}</h2>
     <p>{user.rol}{info.especialidad&&` · ${info.especialidad}`}</p>
     <dl className="user-profile-facts">
@@ -27,7 +27,7 @@ export function Profile({user,onUpdate}:{user:User;onUpdate:(user:User)=>void}){
     </dl>
    </section>
    {!user.cambio_clave_pendiente&&<section className="card" aria-labelledby="personal-heading">
-    <span className="eyebrow">DATOS PERSONALES</span><h2 id="personal-heading">Información personal</h2>
+    <span className="eyebrow">Datos personales</span><h2 id="personal-heading">Información personal</h2>
     <form onSubmit={e=>save(e)}>
      <dl className="user-detail-facts">
       <div><dt>Nombre</dt><dd><input required maxLength={50} aria-label="Nombre" value={info.nombre} onChange={e=>setInfo({...info,nombre:e.target.value})}/></dd></div>
@@ -42,7 +42,7 @@ export function Profile({user,onUpdate}:{user:User;onUpdate:(user:User)=>void}){
     </form>
    </section>}
    <section className="card" aria-labelledby="password-heading">
-    <span className="eyebrow">SEGURIDAD</span><h2 id="password-heading">{user.cambio_clave_pendiente?'Cambia tu contraseña temporal':'Cambiar contraseña'}</h2>
+    <span className="eyebrow">Seguridad</span><h2 id="password-heading">{user.cambio_clave_pendiente?'Cambia tu contraseña temporal':'Cambiar contraseña'}</h2>
     {user.cambio_clave_pendiente?<p className="muted">Por seguridad, debes cambiar tu contraseña temporal antes de continuar.</p>:null}
     <form onSubmit={e=>save(e,true)}>
      <dl className="user-detail-facts">
